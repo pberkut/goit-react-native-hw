@@ -1,12 +1,25 @@
 // import { StatusBar } from 'expo-status-bar';
 import RegistrationScreen from './src/components/Screens/RegistrationScreen';
-import { StyleSheet, View } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  ImageBackground,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
+
+// const backgroundImage = require('./src/images/photo-bg-@2x.jpg');
+const backgroundImage = require('./src/images/photo-bg.jpg');
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <RegistrationScreen />
-    </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <ImageBackground source={backgroundImage} style={styles.image}>
+          <RegistrationScreen />
+        </ImageBackground>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -17,4 +30,14 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     // justifyContent: 'center',
   },
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'flex-end',
+  },
+  // registrationScreen: {
+  //   // flex: 3,
+
+  //   height: 375,
+  // },
 });
