@@ -8,7 +8,6 @@ import {
   Keyboard,
 } from 'react-native';
 
-// const backgroundImage = require('./src/images/photo-bg-@2x.jpg');
 const backgroundImage = require('./src/images/photo-bg.jpg');
 
 export default function App() {
@@ -27,17 +26,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
   image: {
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'flex-end',
   },
-  // registrationScreen: {
-  //   // flex: 3,
-
-  //   height: 375,
-  // },
 });
