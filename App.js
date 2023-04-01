@@ -1,8 +1,10 @@
 // import { StatusBar } from 'expo-status-bar';
+import LoginScreen from './src/components/Screens/LoginScreen';
 import RegistrationScreen from './src/components/Screens/RegistrationScreen';
 import {
   StyleSheet,
   View,
+  ScrollView,
   ImageBackground,
   TouchableWithoutFeedback,
   Keyboard,
@@ -16,6 +18,7 @@ export default function App() {
       <View style={styles.container}>
         <ImageBackground source={backgroundImage} style={styles.image}>
           <RegistrationScreen />
+          {/* <LoginScreen /> */}
         </ImageBackground>
       </View>
     </TouchableWithoutFeedback>

@@ -9,17 +9,37 @@ import {
   KeyboardAvoidingView,
   Platform,
   Keyboard,
+  ScrollView,
 } from 'react-native';
 
-const addBtn = require('../../images/addButton.svg');
-const removeBtn = require('../../images/removeButton.svg');
+const addBtn = require('../../images/addBtn.png');
+const removeBtn = require('../../images/removeBtn.png');
+
+//fonts
+import { useCallback } from 'react';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+
+SplashScreen.preventAutoHideAsync();
+// end fonts
 
 const RegistrationScreen = () => {
+  const focusInputStyle = focus => {
+    return focus ? { ...styles.input, ...styles.inputFocus } : styles.input;
+  };
+
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
   const [login, setLogin] = useState('');
+  const [loginFocus, setLoginFocus] = useState(false);
+
   const [email, setEmail] = useState('');
+  const [emailFocus, setEmailFocus] = useState(false);
+
   const [password, setPassword] = useState('');
+  const [passwordFocus, setPasswordFocus] = useState(false);
+
+  const [isSecurePassword, setIsSecurePassword] = useState(true);
 
   const onChangeLogin = text => setLogin(text);
   const onChangeEmail = text => setEmail(text);
@@ -31,9 +51,18 @@ const RegistrationScreen = () => {
 
   const onRegistration = () => {
     Keyboard.dismiss();
+    setIsSecurePassword(true);
     console.log({ login, email, password });
     resetForm();
   };
+
+  const passwordShown = () => {
+    isSecurePassword === true
+      ? setIsSecurePassword(false)
+      : setIsSecurePassword(true);
+  };
+
+  const showPasswordBtn = isSecurePassword ? 'Show' : 'Hide';
 
   const resetForm = () => {
     setLogin('');
@@ -41,11 +70,27 @@ const RegistrationScreen = () => {
     setPassword('');
   };
 
+  // fonts
+  const [fontsLoaded] = useFonts({
+    'Roboto-regular': require('../../../assets/fonts/Roboto/Roboto-Regular.ttf'),
+    'Lora-regular': require('../../../assets/fonts/Lora/static/Lora-Regular.ttf'),
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
+    <View style={styles.container} onLayout={onLayoutRootView}>
       <View>
         <View style={styles.photo}></View>
-        <TouchableOpacity style={styles.addBtn}>
+        <TouchableOpacity style={styles.addAvatarBtn}>
           <Image source={addBtn} />
         </TouchableOpacity>
       </View>
@@ -55,43 +100,71 @@ const RegistrationScreen = () => {
       <View
         style={{ ...styles.form, marginBottom: isShowKeyboard ? -130 : 50 }}
       >
-        <KeyboardAvoidingView
-          behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-        >
+        <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : ''}>
           <View>
             <TextInput
-              style={styles.input}
+              style={focusInputStyle(loginFocus)}
               value={login}
               onChangeText={onChangeLogin}
               placeholder="Login"
-              onFocus={toggleIsShowKeyboard}
-              onBlur={toggleIsShowKeyboard}
+              onFocus={() => {
+                toggleIsShowKeyboard(), setLoginFocus(true);
+              }}
+              onBlur={() => {
+                toggleIsShowKeyboard(), setLoginFocus(false);
+              }}
             />
           </View>
 
-          <View style={{ marginTop: 16 }}>
+          <View
+            style={{
+              marginTop: 16,
+            }}
+          >
             <TextInput
-              style={styles.input}
+              style={focusInputStyle(emailFocus)}
               value={email}
               onChangeText={onChangeEmail}
               placeholder="Email"
-              onFocus={toggleIsShowKeyboard}
-              onBlur={toggleIsShowKeyboard}
+              onFocus={() => {
+                toggleIsShowKeyboard(), setEmailFocus(true);
+              }}
+              onBlur={() => {
+                toggleIsShowKeyboard(), setEmailFocus(false);
+              }}
             />
           </View>
 
           <View style={{ marginTop: 16 }}>
             <TextInput
-              style={styles.input}
+              style={focusInputStyle(passwordFocus)}
               value={password}
               onChangeText={onChangePassword}
-              secureTextEntry={true}
+              onFocus={() => {
+                setPasswordFocus(true);
+              }}
+              onBlur={() => {
+                setPasswordFocus(false);
+              }}
+              secureTextEntry={isSecurePassword}
               placeholder="Password"
             />
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={styles.passwordShowBtn}
+              onPress={passwordShown}
+            >
+              <Text style={styles.loginTitleBtn}>{showPasswordBtn}</Text>
+            </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
 
-        <View style={{ marginTop: 44 }}>
+        <View
+          style={{
+            marginTop: 44,
+            // display: isShowKeyboard ? 'none' : 'flex'
+          }}
+        >
           <TouchableOpacity
             style={styles.registrationBtn}
             activeOpacity={0.8}
@@ -141,6 +214,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     letterSpacing: 0.01,
     color: '#212121',
+    fontFamily: 'Lora-regular',
   },
   form: {
     marginHorizontal: 16,
@@ -158,7 +232,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: '#F6F6F6',
     color: '#212121',
+    fontFamily: 'Lora-regular',
   },
+  inputFocus: { backgroundColor: '#fff', borderColor: '#FF6C00' },
   registrationBtn: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -173,6 +249,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     color: '#fff',
+    fontFamily: 'Lora-regular',
   },
 
   loginBtn: {
@@ -189,6 +266,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     color: '#1B4371',
+    fontFamily: 'Lora-regular',
+  },
+  passwordShowBtn: {
+    position: 'absolute',
+    top: 16,
+    right: 16,
+  },
+  addAvatarBtn: {
+    position: 'absolute',
+    top: 20,
+    left: 245,
   },
 });
 
