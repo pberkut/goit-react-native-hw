@@ -10,6 +10,11 @@ import {
   Keyboard,
 } from 'react-native';
 
+if (__DEV__) {
+  import('./ReactotronConfig').then(() => console.log('Reactotron Configured'));
+  console.log('I am in debug');
+}
+
 const backgroundImage = require('./src/images/photo-bg.jpg');
 
 export default function App() {
@@ -17,8 +22,8 @@ export default function App() {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <ImageBackground source={backgroundImage} style={styles.image}>
-          {/* <RegistrationScreen /> */}
-          <LoginScreen />
+          <RegistrationScreen />
+          {/* <LoginScreen /> */}
         </ImageBackground>
       </View>
     </TouchableWithoutFeedback>
