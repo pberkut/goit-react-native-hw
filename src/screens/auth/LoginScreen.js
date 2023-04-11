@@ -13,9 +13,6 @@ import {
   Dimensions,
 } from 'react-native';
 
-import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
-
 const initialState = {
   email: '',
   password: '',
@@ -91,30 +88,12 @@ function LoginScreen() {
 
   const showPasswordBtn = isSecurePassword ? 'Show' : 'Hide';
 
-  //fonts
-  SplashScreen.preventAutoHideAsync();
-
-  const [fontsLoaded] = useFonts({
-    'Roboto-Regular': require('../../../assets/fonts/Roboto/Roboto-Regular.ttf'),
-  });
-
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
-
-  if (!fontsLoaded) {
-    return null;
-  }
-
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
       <View
         style={{
           ...styles.container,
         }}
-        onLayout={onLayoutRootView}
       >
         <ImageBackground style={styles.image} source={backgroundImage}>
           <View

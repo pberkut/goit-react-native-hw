@@ -15,14 +15,6 @@ import {
 const addBtn = require('../../images/addBtn.png');
 const removeBtn = require('../../images/removeBtn.png');
 
-//fonts
-import { useCallback } from 'react';
-import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
-
-SplashScreen.preventAutoHideAsync();
-// end fonts
-
 const RegisterScreen = () => {
   const focusInputStyle = focus => {
     return focus ? { ...styles.input, ...styles.inputFocus } : styles.input;
@@ -70,24 +62,8 @@ const RegisterScreen = () => {
     setPassword('');
   };
 
-  // fonts
-  const [fontsLoaded] = useFonts({
-    'Roboto-regular': require('../../../assets/fonts/Roboto/Roboto-Regular.ttf'),
-    'Lora-regular': require('../../../assets/fonts/Lora/static/Lora-Regular.ttf'),
-  });
-
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
-
-  if (!fontsLoaded) {
-    return null;
-  }
-
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
+    <View style={styles.container}>
       <View>
         <View style={styles.photo}></View>
         <TouchableOpacity style={styles.addAvatarBtn}>
@@ -214,7 +190,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     letterSpacing: 0.01,
     color: '#212121',
-    fontFamily: 'Lora-regular',
+    // fontFamily: 'Lora-regular',
+    fontFamily: 'Roboto-Bold',
   },
   form: {
     marginHorizontal: 16,
