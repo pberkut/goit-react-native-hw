@@ -3,6 +3,7 @@
 
 # yarn
 .yarn/*
+.yarn/*.zip
 !.yarn/cache
 !.yarn/patches
 !.yarn/plugins

@@ -23,7 +23,7 @@ const initialState = {
 
 const backgroundImage = require('../../images/photo-bg.jpg');
 
-export default function LoginScreen() {
+function LoginScreen() {
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [state, setState] = useState(initialState);
   const [dimensions, setDimensions] = useState(
@@ -304,3 +304,5 @@ const styles = StyleSheet.create({
     right: 16,
   },
 });
+
+export default LoginScreen;

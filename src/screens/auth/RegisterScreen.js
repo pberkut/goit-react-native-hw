@@ -23,7 +23,7 @@ import * as SplashScreen from 'expo-splash-screen';
 SplashScreen.preventAutoHideAsync();
 // end fonts
 
-const RegistrationScreen = () => {
+const RegisterScreen = () => {
   const focusInputStyle = focus => {
     return focus ? { ...styles.input, ...styles.inputFocus } : styles.input;
   };
@@ -280,4 +280,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegistrationScreen;
+export default RegisterScreen;

@@ -1,6 +1,6 @@
 // import { StatusBar } from 'expo-status-bar';
-import LoginScreen from './src/components/Screens/LoginScreen';
-import RegistrationScreen from './src/components/Screens/RegistrationScreen';
+import LoginScreen from './src/screens/auth/LoginScreen';
+import RegisterScreen from './src/screens/auth/RegisterScreen';
 import {
   StyleSheet,
   View,
@@ -22,7 +22,7 @@ export default function App() {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <ImageBackground source={backgroundImage} style={styles.image}>
-          <RegistrationScreen />
+          <RegisterScreen />
           {/* <LoginScreen /> */}
         </ImageBackground>
       </View>
