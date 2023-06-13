@@ -1,15 +1,18 @@
 .web/cache
 
 
+
 # yarn
+.yarn/install-state.*
+.yarn/install-state.gz
 .yarn/*
 .yarn/*.zip
-!.yarn/cache
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
+.yarn/cache
+.yarn/patches
+.yarn/plugins
+.yarn/releases
+.yarn/sdks
+.yarn/versions
 
 # Expo
 .expo
@@ -168,3 +171,8 @@ docs/pages/versions/*/react-native/*.diff
 /ios/build
 **/ios/.xcode.env.local
 /ios/versioned-react-native/*/ReactNative/sdks/hermes-engine/destroot
+.gitignore
+.yarn/install-state.gz
+.gitignore
+.yarn/install-state.gz
+.yarn/install-state.gz
