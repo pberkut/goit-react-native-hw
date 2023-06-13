@@ -91,7 +91,7 @@ function LoginScreen() {
       : setIsSecurePassword(true);
   };
 
-  const showPasswordButton = isSecurePassword ? 'Show' : 'Hide';
+  const showPasswordButton = isSecurePassword ? 'Показати' : 'Приховати';
 
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>

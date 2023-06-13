@@ -59,7 +59,7 @@ const RegisterScreen = () => {
       : setIsSecurePassword(true);
   };
 
-  const showPasswordBtn = isSecurePassword ? 'Show' : 'Hide';
+  const showPasswordBtn = isSecurePassword ? 'Показати' : 'Приховати';
 
   const resetForm = () => {
     setLogin('');
@@ -106,7 +106,7 @@ const RegisterScreen = () => {
               </View>
 
               <View style={styles.header}>
-                <Text style={styles.headerTitle}>Registration</Text>
+                <Text style={styles.headerTitle}>Реєстрація</Text>
               </View>
 
               <View>
@@ -114,7 +114,7 @@ const RegisterScreen = () => {
                   style={focusInputStyle(loginFocus)}
                   value={login}
                   onChangeText={onChangeLogin}
-                  placeholder="Login"
+                  placeholder="Логін"
                   onFocus={() => {
                     toggleIsKeyboardVisible(), setLoginFocus(true);
                   }}
@@ -133,7 +133,7 @@ const RegisterScreen = () => {
                   style={focusInputStyle(emailFocus)}
                   value={email}
                   onChangeText={onChangeEmail}
-                  placeholder="Email"
+                  placeholder="Адреса електронної пошти"
                   onFocus={() => {
                     toggleIsKeyboardVisible(), setEmailFocus(true);
                   }}
@@ -155,7 +155,7 @@ const RegisterScreen = () => {
                     setPasswordFocus(false);
                   }}
                   secureTextEntry={isSecurePassword}
-                  placeholder="Password"
+                  placeholder="Пароль"
                 />
                 <TouchableOpacity
                   activeOpacity={0.8}
@@ -177,13 +177,13 @@ const RegisterScreen = () => {
                   activeOpacity={0.8}
                   onPress={onRegistration}
                 >
-                  <Text style={styles.registrationTitleBtn}>Registration</Text>
+                  <Text style={styles.registrationTitleBtn}>
+                    Зареєструватися
+                  </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.loginBtn} activeOpacity={0.8}>
-                  <Text style={styles.loginTitleBtn}>
-                    Already have an account? Sign in...
-                  </Text>
+                  <Text style={styles.loginTitleBtn}>Вже є акаунт? Увійти</Text>
                 </TouchableOpacity>
               </View>
             </View>
