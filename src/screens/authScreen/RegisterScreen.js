@@ -4,9 +4,6 @@ import {
   Image,
   ImageBackground,
   TouchableWithoutFeedback,
-} from 'react-native';
-import { TextInput } from 'react-native';
-import {
   StyleSheet,
   View,
   Text,
@@ -14,7 +11,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Keyboard,
-  ScrollView,
+  TextInput,
 } from 'react-native';
 
 import AddPhotoImage from '../../assets/images/add-photo.svg';

@@ -12,6 +12,8 @@ if (__DEV__) {
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback } from 'react';
+import CreatePostsScreen from './src/screens/mainScreen/CreatePostsScreen';
+import PostsScreen from './src/screens/nestedScreen/PostsScreen';
 
 export default function App() {
   //fonts
@@ -39,7 +41,9 @@ export default function App() {
     <View style={styles.container} onLayout={onLayoutRootView}>
       <NavigationContainer>
         {/* <RegisterScreen /> */}
-        <LoginScreen />
+        {/* <LoginScreen /> */}
+        {/* <CreatePostsScreen /> */}
+        <PostsScreen />
       </NavigationContainer>
     </View>
   );
