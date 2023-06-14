@@ -5,6 +5,7 @@ import {
   Text,
   TouchableWithoutFeedback,
   Keyboard,
+  StyleSheet,
 } from 'react-native';
 
 const CreatePostsScreen = () => {
@@ -34,11 +35,19 @@ const CreatePostsScreen = () => {
 
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
-      <View>
+      <View style={styles.container}>
         <Text>Створити публікацію</Text>
       </View>
     </TouchableWithoutFeedback>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 export default CreatePostsScreen;

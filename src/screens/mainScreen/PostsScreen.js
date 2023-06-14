@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
-const ProfileScreen = () => {
+const PostsScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>Profile screen</Text>
+      <Text>Публікації</Text>
     </View>
   );
 };
@@ -16,4 +16,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileScreen;
+export default PostsScreen;

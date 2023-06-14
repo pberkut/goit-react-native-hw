@@ -1,22 +1,25 @@
 // import { StatusBar } from 'expo-status-bar';
-import LoginScreen from './src/screens/authScreen/LoginScreen';
-import RegisterScreen from './src/screens/authScreen/RegisterScreen';
+import { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
 
+import useRoute from './router';
+
+// Nested screens
+import CommentsScreen from './src/screens/nestedScreen/CommentsScreen';
+import MapScreen from './src/screens/nestedScreen/MapScreen';
+
+// Configuration for Reactotron debugger
 if (__DEV__) {
   import('./ReactotronConfig').then(() => console.log('Reactotron Configured'));
   console.log('I am in debug');
 }
 
-import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
-import { useCallback } from 'react';
-import CreatePostsScreen from './src/screens/mainScreen/CreatePostsScreen';
-import PostsScreen from './src/screens/nestedScreen/PostsScreen';
-
 export default function App() {
-  //fonts
+  const routing = useRoute({});
+  // Add fonts & SplashScreen
   SplashScreen.preventAutoHideAsync();
 
   const [fontsLoaded] = useFonts({
@@ -40,10 +43,10 @@ export default function App() {
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
       <NavigationContainer>
-        {/* <RegisterScreen /> */}
-        {/* <LoginScreen /> */}
-        {/* <CreatePostsScreen /> */}
-        <PostsScreen />
+        {routing}
+        {/* <HomeScreen /> */}
+        {/* <CommentsScreen /> */}
+        {/* <MapScreen /> */}
       </NavigationContainer>
     </View>
   );

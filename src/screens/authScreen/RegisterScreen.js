@@ -14,6 +14,8 @@ import {
   TextInput,
 } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+
 import AddPhotoImage from '../../assets/images/add-photo.svg';
 
 const backgroundImage = require('../../assets/images/background-image.jpg');
@@ -55,8 +57,9 @@ const RegisterScreen = () => {
     };
   }, []);
 
+  const navigation = useNavigation();
+
   const keyboardHide = () => {
-    // setIsKeyboardOpen(false);
     Keyboard.dismiss();
   };
 
@@ -198,7 +201,7 @@ const RegisterScreen = () => {
                   {/* Register button */}
                   <TouchableOpacity
                     style={{ ...styles.registerButton }}
-                    activeOpacity={0.8}
+                    activeOpacity={0.6}
                     onPress={onSubmitRegister}
                   >
                     <Text style={styles.registerTitleButton}>
@@ -209,10 +212,12 @@ const RegisterScreen = () => {
                   {/* Login button */}
                   <TouchableOpacity
                     style={styles.loginButton}
-                    activeOpacity={0.8}
+                    activeOpacity={0.6}
+                    onPress={() => navigation.navigate('Login')}
                   >
                     <Text style={styles.loginTitleButton}>
-                      Вже є акаунт? Увійти
+                      Вже є акаунт?{' '}
+                      <Text style={styles.loginTitleButtonAccent}>Увійти</Text>
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -289,11 +294,11 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
   formHeaderTitle: {
-    fontFamily: 'Roboto-Bold',
+    fontFamily: 'Roboto',
     fontSize: 30,
-    fontWeight: 500,
+    fontWeight: '500',
     lineHeight: 35,
-    letterSpacing: 0.01,
+    letterSpacing: 0.16,
     color: '#212121',
   },
 
@@ -302,6 +307,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     height: 50,
     padding: 16,
+    fontFamily: 'Roboto',
     fontStyle: 'normal',
     fontWeight: '400',
     lineHeight: 19,
@@ -312,7 +318,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: '#F6F6F6',
     color: '#212121',
-    fontFamily: 'Lora-regular',
   },
   inputFocus: { backgroundColor: '#fff', borderColor: '#FF6C00' },
 
@@ -326,12 +331,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#ff6c00',
   },
   registerTitleButton: {
+    fontFamily: 'Roboto',
     fontStyle: 'normal',
-    fontWeight: 400,
+    fontWeight: '400',
     fontSize: 16,
     lineHeight: 19,
     color: '#fff',
-    fontFamily: 'Lora-regular',
+  },
+  loginTitleButtonAccent: {
+    textDecorationLine: 'underline',
   },
 
   loginButton: {
@@ -343,12 +351,12 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   loginTitleButton: {
+    fontFamily: 'Roboto',
     fontStyle: 'normal',
-    fontWeight: 400,
+    fontWeight: '400',
     fontSize: 16,
     lineHeight: 19,
     color: '#1B4371',
-    fontFamily: 'Lora-regular',
   },
   showPasswordButton: {
     position: 'absolute',
@@ -356,7 +364,7 @@ const styles = StyleSheet.create({
     right: 30,
   },
   showPasswordTitleButton: {
-    fontFamily: 'Roboto-Regular',
+    fontFamily: 'Roboto',
     fontSize: 16,
     fontWeight: '400',
     color: '#1B4371',

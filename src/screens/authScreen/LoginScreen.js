@@ -15,9 +15,13 @@ import {
   Alert,
 } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+
 const backgroundImage = require('../../assets/images/background-image.jpg');
 
-function LoginScreen() {
+const LoginScreen = () => {
+  const navigation = useNavigation();
+
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
 
   const [email, setEmail] = useState('');
@@ -71,7 +75,6 @@ function LoginScreen() {
   }, []);
 
   const keyboardHide = () => {
-    // setIsKeyboardOpen(false);
     Keyboard.dismiss();
   };
 
@@ -173,7 +176,7 @@ function LoginScreen() {
                 >
                   {/* Login button*/}
                   <TouchableOpacity
-                    activeOpacity={0.8}
+                    activeOpacity={0.6}
                     style={styles.loginButton}
                     onPress={onSubmitLogin}
                   >
@@ -182,12 +185,15 @@ function LoginScreen() {
 
                   {/* Register Button*/}
                   <TouchableOpacity
-                    activeOpacity={0.8}
+                    activeOpacity={0.6}
                     style={styles.registerButton}
-                    // onPress={}
+                    onPress={() => navigation.navigate('Register')}
                   >
                     <Text style={styles.registerTitleButton}>
-                      Немає акаунту? Зареєструватися
+                      Немає акаунту?{' '}
+                      <Text style={styles.registerTitleButtonAccent}>
+                        Зареєструватися
+                      </Text>
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -198,7 +204,7 @@ function LoginScreen() {
       </View>
     </TouchableWithoutFeedback>
   );
-}
+};
 
 const styles = StyleSheet.create({
   backgroundContainer: {
@@ -271,7 +277,7 @@ const styles = StyleSheet.create({
     right: 30,
   },
   showPasswordTitleButton: {
-    fontFamily: 'Roboto-Regular',
+    fontFamily: 'Roboto',
     fontSize: 16,
     fontWeight: '400',
     color: '#1B4371',
@@ -286,7 +292,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   loginTitleButton: {
-    fontFamily: 'Roboto-Regular',
+    fontFamily: 'Roboto',
     fontSize: 16,
     fontWeight: '400',
     color: '#fff',
@@ -298,11 +304,14 @@ const styles = StyleSheet.create({
     marginBottom: 144,
   },
   registerTitleButton: {
-    fontFamily: 'Roboto-Regular',
+    fontFamily: 'Roboto',
     textAlign: 'center',
     fontSize: 16,
     fontWeight: '400',
     color: '#1B4371',
+  },
+  registerTitleButtonAccent: {
+    textDecorationLine: 'underline',
   },
 
   hidden: {
