@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Dimensions,
   Image,
@@ -22,7 +22,7 @@ import AddPhotoImage from '../../assets/images/add-photo.svg';
 const backgroundImage = require('../../assets/images/background-image.jpg');
 
 const RegisterScreen = () => {
-  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
 
   const [login, setLogin] = useState('');
   const [loginFocus, setLoginFocus] = useState(false);
@@ -38,37 +38,53 @@ const RegisterScreen = () => {
     return focus ? { ...styles.input, ...styles.inputFocus } : styles.input;
   };
 
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setIsKeyboardOpen(true); // or some other action
+      },
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setIsKeyboardOpen(false); // or some other action
+      },
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
+  const keyboardHide = () => {
+    // setIsKeyboardOpen(false);
+    Keyboard.dismiss();
+  };
+
   const onChangeLogin = text => setLogin(text);
   const onChangeEmail = text => setEmail(text);
   const onChangePassword = text => setPassword(text);
 
-  const toggleIsKeyboardVisible = () => {
-    setIsKeyboardVisible(prevState => !prevState);
-  };
+  const toggleShowPassword = () => setIsSecurePassword(prevState => !prevState);
 
-  const onRegistration = () => {
-    Keyboard.dismiss();
+  // Form submit
+  const onSubmitRegister = () => {
+    const userCredentials = { login, email, password };
     setIsSecurePassword(true);
-    console.log({ login, email, password });
-    resetForm();
+    console.log(userCredentials);
+    resetRegisterForm();
   };
 
-  const passwordShown = () => {
-    isSecurePassword === true
-      ? setIsSecurePassword(false)
-      : setIsSecurePassword(true);
-  };
-
-  const showPasswordBtn = isSecurePassword ? 'Показати' : 'Приховати';
-
-  const resetForm = () => {
+  const resetRegisterForm = () => {
     setLogin('');
     setEmail('');
     setPassword('');
   };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={styles.backgroundContainer}>
         <ImageBackground
           style={styles.backgroundImage}
@@ -78,13 +94,15 @@ const RegisterScreen = () => {
             style={styles.container}
             behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
           >
+            {/* Register form */}
             <View
               style={{
                 ...styles.form,
                 width: Dimensions.get('window').width,
-                paddingBottom: isKeyboardVisible ? 20 : 32,
+                paddingBottom: isKeyboardOpen ? 20 : 32,
               }}
             >
+              {/* Photo user */}
               <View style={styles.photoContainer}>
                 <View style={styles.imagePhotoContainer}>
                   <Image
@@ -92,6 +110,7 @@ const RegisterScreen = () => {
                     // source={require('../../assets/images/user-photo.jpg')}
                   />
                 </View>
+                {/* Add photo user button */}
                 <View style={styles.photoButtonContainer}>
                   <AddPhotoImage
                     width={25}
@@ -105,10 +124,12 @@ const RegisterScreen = () => {
                 </View>
               </View>
 
-              <View style={styles.header}>
-                <Text style={styles.headerTitle}>Реєстрація</Text>
+              {/* Form header */}
+              <View style={styles.formHeader}>
+                <Text style={styles.formHeaderTitle}>Реєстрація</Text>
               </View>
 
+              {/* Login input */}
               <View>
                 <TextInput
                   style={focusInputStyle(loginFocus)}
@@ -116,14 +137,15 @@ const RegisterScreen = () => {
                   onChangeText={onChangeLogin}
                   placeholder="Логін"
                   onFocus={() => {
-                    toggleIsKeyboardVisible(), setLoginFocus(true);
+                    setIsKeyboardOpen(true), setLoginFocus(true);
                   }}
                   onBlur={() => {
-                    toggleIsKeyboardVisible(), setLoginFocus(false);
+                    setLoginFocus(false);
                   }}
                 />
               </View>
 
+              {/* Email input */}
               <View
                 style={{
                   marginTop: 16,
@@ -135,57 +157,69 @@ const RegisterScreen = () => {
                   onChangeText={onChangeEmail}
                   placeholder="Адреса електронної пошти"
                   onFocus={() => {
-                    toggleIsKeyboardVisible(), setEmailFocus(true);
+                    setIsKeyboardOpen(true), setEmailFocus(true);
                   }}
                   onBlur={() => {
-                    toggleIsKeyboardVisible(), setEmailFocus(false);
+                    setEmailFocus(false);
                   }}
                 />
               </View>
 
+              {/* Password input */}
               <View style={{ marginTop: 16 }}>
                 <TextInput
                   style={focusInputStyle(passwordFocus)}
                   value={password}
                   onChangeText={onChangePassword}
+                  placeholder="Пароль"
+                  secureTextEntry={isSecurePassword}
                   onFocus={() => {
-                    setPasswordFocus(true);
+                    setIsKeyboardOpen(true), setPasswordFocus(true);
                   }}
                   onBlur={() => {
                     setPasswordFocus(false);
                   }}
-                  secureTextEntry={isSecurePassword}
-                  placeholder="Пароль"
                 />
                 <TouchableOpacity
                   activeOpacity={0.8}
-                  style={styles.passwordShowBtn}
-                  onPress={passwordShown}
+                  style={styles.showPasswordButton}
+                  onPress={toggleShowPassword}
                 >
-                  <Text style={styles.loginTitleBtn}>{showPasswordBtn}</Text>
-                </TouchableOpacity>
-              </View>
-
-              <View
-                style={{
-                  marginTop: 44,
-                  display: isKeyboardVisible ? 'none' : 'flex',
-                }}
-              >
-                <TouchableOpacity
-                  style={{ ...styles.registrationBtn }}
-                  activeOpacity={0.8}
-                  onPress={onRegistration}
-                >
-                  <Text style={styles.registrationTitleBtn}>
-                    Зареєструватися
+                  <Text style={styles.showPasswordTitleButton}>
+                    {isSecurePassword ? 'Показати' : 'Приховати'}
                   </Text>
                 </TouchableOpacity>
-
-                <TouchableOpacity style={styles.loginBtn} activeOpacity={0.8}>
-                  <Text style={styles.loginTitleBtn}>Вже є акаунт? Увійти</Text>
-                </TouchableOpacity>
               </View>
+
+              {/* Buttons */}
+              {!isKeyboardOpen && (
+                <View
+                  style={{
+                    marginTop: 44,
+                  }}
+                >
+                  {/* Register button */}
+                  <TouchableOpacity
+                    style={{ ...styles.registerButton }}
+                    activeOpacity={0.8}
+                    onPress={onSubmitRegister}
+                  >
+                    <Text style={styles.registerTitleButton}>
+                      Зареєструватися
+                    </Text>
+                  </TouchableOpacity>
+
+                  {/* Login button */}
+                  <TouchableOpacity
+                    style={styles.loginButton}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={styles.loginTitleButton}>
+                      Вже є акаунт? Увійти
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              )}
             </View>
           </KeyboardAvoidingView>
         </ImageBackground>
@@ -253,11 +287,11 @@ const styles = StyleSheet.create({
     color: '#000',
   },
 
-  header: {
+  formHeader: {
     alignItems: 'center',
     marginBottom: 32,
   },
-  headerTitle: {
+  formHeaderTitle: {
     fontFamily: 'Roboto-Bold',
     fontSize: 30,
     fontWeight: 500,
@@ -285,7 +319,7 @@ const styles = StyleSheet.create({
   },
   inputFocus: { backgroundColor: '#fff', borderColor: '#FF6C00' },
 
-  registrationBtn: {
+  registerButton: {
     marginHorizontal: 16,
     justifyContent: 'center',
     alignItems: 'center',
@@ -294,7 +328,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     backgroundColor: '#ff6c00',
   },
-  registrationTitleBtn: {
+  registerTitleButton: {
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: 16,
@@ -303,7 +337,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Lora-regular',
   },
 
-  loginBtn: {
+  loginButton: {
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 16,
@@ -311,7 +345,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     color: '#000',
   },
-  loginTitleBtn: {
+  loginTitleButton: {
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: 16,
@@ -319,10 +353,13 @@ const styles = StyleSheet.create({
     color: '#1B4371',
     fontFamily: 'Lora-regular',
   },
-  passwordShowBtn: {
+  showPasswordButton: {
     position: 'absolute',
     top: 14,
     right: 30,
+  },
+  showPasswordTitleButton: {
+    fontFamily: 'Roboto-Regular',
     fontSize: 16,
     fontWeight: '400',
     color: '#1B4371',
