@@ -3,13 +3,15 @@
 // import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import PostsScreen from '../mainScreen/PostsScreen';
-import CreatePostsScreen from '../mainScreen/CreatePostsScreen';
-import ProfileScreen from '../mainScreen/ProfileScreen';
+import { PostsScreen, CreatePostsScreen, ProfileScreen } from '../';
 
-import PostsIcon from '../../assets/images/posts-icon.svg';
-import CreatePostIcon from '../../assets/images/create-posts-icon.svg';
-import ProfileIcon from '../../assets/images/profile-icon.svg';
+import {
+  PostsIcon,
+  CreatePostsIcon,
+  ProfileIcon,
+} from '../../../utils/svgIcons';
+
+import { styles } from './HomeScreenStyled';
 
 // const navigation = useNavigation();
 const MainTab = createBottomTabNavigator();
@@ -20,17 +22,23 @@ const HomeScreen = () => {
   // }, []);
 
   return (
-    <MainTab.Navigator screenOptions={{ tabBarShowLabel: false }}>
+    <MainTab.Navigator
+      screenOptions={{
+        tabBarShowLabel: false,
+        tabBarStyle: styles.tabBarStyles,
+        tabBarActiveTintColor: '#FF6C00',
+      }}
+    >
       <MainTab.Screen
         name="Posts"
         component={PostsScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({ focused, size, color }) => {
-            return <PostsIcon width={40} height={40} />;
+          tabBarIcon: ({ focused, color, size }) => {
+            return <PostsIcon color={color} width={40} height={40} />;
           },
-          tabBarActiveTintColor: 'red',
-          tabBarInactiveTintColor: 'black',
+          // tabBarActiveTintColor: 'red',
+          // tabBarInactiveTintColor: 'white',
         }}
       />
       <MainTab.Screen
@@ -38,8 +46,8 @@ const HomeScreen = () => {
         component={CreatePostsScreen}
         options={{
           headerShown: false,
-          tabBarIcon: (focused, color, size) => {
-            return <CreatePostIcon width={70} height={40} />;
+          tabBarIcon: ({ focused, color, size }) => {
+            return <CreatePostsIcon width={70} height={40} color={color} />;
           },
         }}
       />
@@ -48,9 +56,11 @@ const HomeScreen = () => {
         component={ProfileScreen}
         options={{
           headerShown: false,
-          tabBarIcon: (focused, color, size) => {
-            return <ProfileIcon width={40} height={40} />;
+          tabBarIcon: ({ focused, color, size }) => {
+            return <ProfileIcon width={40} height={40} color={color} />;
           },
+          // tabBarActiveTintColor: 'red',
+          // tabBarInactiveTintColor: 'white',
         }}
       />
     </MainTab.Navigator>
@@ -65,4 +75,4 @@ const HomeScreen = () => {
 //   },
 // });
 
-export default HomeScreen;
+export { HomeScreen };

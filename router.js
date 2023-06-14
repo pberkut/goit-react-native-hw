@@ -2,10 +2,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Auth screens
-import LoginScreen from './src/screens/authScreen/LoginScreen';
-import RegisterScreen from './src/screens/authScreen/RegisterScreen';
+import { LoginScreen, RegisterScreen } from './src/screens/authScreen';
 // Main screens
-import HomeScreen from './src/screens/mainScreen/HomeScreen';
+import { HomeScreen } from './src/screens/mainScreen';
 
 const AuthStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();

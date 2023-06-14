@@ -7,10 +7,6 @@ import * as SplashScreen from 'expo-splash-screen';
 
 import useRoute from './router';
 
-// Nested screens
-import CommentsScreen from './src/screens/nestedScreen/CommentsScreen';
-import MapScreen from './src/screens/nestedScreen/MapScreen';
-
 // Configuration for Reactotron debugger
 if (__DEV__) {
   import('./ReactotronConfig').then(() => console.log('Reactotron Configured'));
@@ -19,6 +15,7 @@ if (__DEV__) {
 
 export default function App() {
   const routing = useRoute({});
+
   // Add fonts & SplashScreen
   SplashScreen.preventAutoHideAsync();
 
@@ -26,7 +23,6 @@ export default function App() {
     'Roboto-Regular': require('./src/assets/fonts/Roboto/Roboto-Regular.ttf'),
     'Roboto-Medium': require('./src/assets/fonts/Roboto/Roboto-Medium.ttf'),
     'Roboto-Bold': require('./src/assets/fonts/Roboto/Roboto-Bold.ttf'),
-    'Lora-regular': require('./src/assets/fonts/Lora/static/Lora-Regular.ttf'),
   });
 
   const onLayoutRootView = useCallback(async () => {
@@ -42,12 +38,7 @@ export default function App() {
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      <NavigationContainer>
-        {routing}
-        {/* <HomeScreen /> */}
-        {/* <CommentsScreen /> */}
-        {/* <MapScreen /> */}
-      </NavigationContainer>
+      <NavigationContainer>{routing}</NavigationContainer>
     </View>
   );
 }

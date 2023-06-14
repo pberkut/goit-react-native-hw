@@ -8,6 +8,8 @@ import {
   StyleSheet,
 } from 'react-native';
 
+import { styles } from './CreatePostsScreenStyled';
+
 const CreatePostsScreen = () => {
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -42,12 +44,4 @@ const CreatePostsScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
-
-export default CreatePostsScreen;
+export { CreatePostsScreen };

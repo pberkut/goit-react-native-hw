@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 
+import { styles } from './ProfileScreenStyled';
+
 const ProfileScreen = () => {
   return (
     <View style={styles.container}>
@@ -8,12 +10,4 @@ const ProfileScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
-
-export default ProfileScreen;
+export { ProfileScreen };

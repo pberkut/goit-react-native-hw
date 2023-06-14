@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.22.5",
+    "babel-plugin-inline-import": "^3.0.0",
     "react-devtools": "^4.27.8",
     "reactotron-react-native": "^5.0.3"
   },
