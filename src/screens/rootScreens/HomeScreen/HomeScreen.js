@@ -3,64 +3,76 @@
 // import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { PostsScreen, CreatePostsScreen, ProfileScreen } from '../';
+import {
+  PostsScreen,
+  CreatePostsScreen,
+  ProfileScreen,
+} from '../../mainScreens';
 
 import {
   PostsIcon,
   CreatePostsIcon,
   ProfileIcon,
+  LogoutIcon,
+  ArrowLeftIcon,
 } from '../../../utils/svgIcons';
 
-import { styles } from './HomeScreenStyled';
+import { styles } from './HomeScreenStyles';
+import { TouchableOpacity } from 'react-native';
 
-// const navigation = useNavigation();
 const MainTab = createBottomTabNavigator();
 
-const HomeScreen = () => {
-  // useEffect(() => {
-  //   navigation.navigate('Tabs', { screen: 'Posts' });
-  // }, []);
-
+const HomeScreen = ({ navigation }) => {
   return (
     <MainTab.Navigator
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle: styles.tabBarStyles,
+        headerRightContainerStyle: styles.exitBtn,
         tabBarActiveTintColor: '#FF6C00',
       }}
     >
       <MainTab.Screen
-        name="Posts"
+        name="Публікації"
         component={PostsScreen}
         options={{
-          headerShown: false,
-          tabBarIcon: ({ focused, color, size }) => {
-            return <PostsIcon color={color} width={40} height={40} />;
-          },
-          // tabBarActiveTintColor: 'red',
-          // tabBarInactiveTintColor: 'white',
+          headerTitleAlign: 'center',
+          headerTitleStyle: styles.headerTitleStyle,
+          tabBarIcon: ({ focused, color, size }) => (
+            <PostsIcon color={color} width={40} height={40} />
+          ),
+          headerRight: () => (
+            <TouchableOpacity>
+              <LogoutIcon width={24} height={24} />
+            </TouchableOpacity>
+          ),
         }}
       />
       <MainTab.Screen
-        name="CreatePosts"
+        name="Створити публікацію"
         component={CreatePostsScreen}
         options={{
-          headerShown: false,
+          headerTitleAlign: 'center',
+          headerTitleStyle: styles.headerTitleStyle,
           tabBarIcon: ({ focused, color, size }) => {
             return <CreatePostsIcon width={70} height={40} color={color} />;
           },
+          headerLeftContainerStyle: styles.headerLeftContainerStyle,
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <ArrowLeftIcon width={24} height={24} />
+            </TouchableOpacity>
+          ),
         }}
       />
       <MainTab.Screen
-        name="Profile"
+        name="Профіль"
         component={ProfileScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused, color, size }) => {
             return <ProfileIcon width={40} height={40} color={color} />;
           },
-          // tabBarActiveTintColor: 'red',
-          // tabBarInactiveTintColor: 'white',
         }}
       />
     </MainTab.Navigator>
@@ -75,4 +87,4 @@ const HomeScreen = () => {
 //   },
 // });
 
-export { HomeScreen };
+export default HomeScreen;

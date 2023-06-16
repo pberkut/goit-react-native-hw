@@ -1,33 +1,30 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
-  Dimensions,
-  Image,
-  ImageBackground,
-  TouchableWithoutFeedback,
   StyleSheet,
-  View,
   Text,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  Platform,
-  Keyboard,
+  View,
+  ImageBackground,
   TextInput,
+  TouchableOpacity,
+  Platform,
+  KeyboardAvoidingView,
+  Keyboard,
+  TouchableWithoutFeedback,
+  Dimensions,
+  ActivityIndicator,
+  Alert,
 } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
-import { styles } from './RegisterScreenStyled';
-
-import { AddPhotoBtnIcon } from '../../../utils/svgIcons';
-// import AddPhotoImage from '../../../assets/images/add-photo.svg';
+import { styles } from './LoginScreenStyles';
 
 const backgroundImage = require('../../../assets/images/background-image.jpg');
 
-const RegisterScreen = () => {
-  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+const LoginScreen = () => {
+  const navigation = useNavigation();
 
-  const [login, setLogin] = useState('');
-  const [loginFocus, setLoginFocus] = useState(false);
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
 
   const [email, setEmail] = useState('');
   const [emailFocus, setEmailFocus] = useState(false);
@@ -36,9 +33,28 @@ const RegisterScreen = () => {
   const [passwordFocus, setPasswordFocus] = useState(false);
   const [isSecurePassword, setIsSecurePassword] = useState(true);
 
+  const [dimensions, setDimensions] = useState(
+    Dimensions.get('window').width - 16 * 2,
+  );
+  const [dimensionsHeight, setDimensionsHeight] = useState(
+    Dimensions.get('window').height,
+  );
+
   const focusInputStyle = focus => {
     return focus ? { ...styles.input, ...styles.inputFocus } : styles.input;
   };
+
+  useEffect(() => {
+    const onChange = () => {
+      const width = Dimensions.get('window').width - 16 * 2;
+      const height = Dimensions.get('window').height;
+
+      setDimensions(width);
+      setDimensionsHeight(height);
+    };
+    const subscription = Dimensions.addEventListener('change', onChange);
+    return () => subscription.remove();
+  });
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -60,28 +76,24 @@ const RegisterScreen = () => {
     };
   }, []);
 
-  const navigation = useNavigation();
-
   const keyboardHide = () => {
     Keyboard.dismiss();
   };
 
-  const onChangeLogin = text => setLogin(text);
   const onChangeEmail = text => setEmail(text);
   const onChangePassword = text => setPassword(text);
 
   const toggleShowPassword = () => setIsSecurePassword(prevState => !prevState);
 
   // Form submit
-  const onSubmitRegister = () => {
-    const userCredentials = { login, email, password };
+  const onSubmitLogin = () => {
+    const userCredentials = { email, password };
     setIsSecurePassword(true);
     console.log(userCredentials);
-    resetRegisterForm();
+    resetLoginForm();
   };
 
-  const resetRegisterForm = () => {
-    setLogin('');
+  const resetLoginForm = () => {
     setEmail('');
     setPassword('');
   };
@@ -97,64 +109,21 @@ const RegisterScreen = () => {
             style={styles.container}
             behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
           >
-            {/* Register form */}
+            {/* Login form */}
             <View
               style={{
                 ...styles.form,
                 width: Dimensions.get('window').width,
-                paddingBottom: isKeyboardOpen ? 20 : 32,
+                marginTop: dimensions > dimensionsHeight ? 100 : 0,
               }}
             >
-              {/* Photo user */}
-              <View style={styles.photoContainer}>
-                <View style={styles.imagePhotoContainer}>
-                  <Image
-                    style={styles.userPhoto}
-                    // source={require('../../assets/images/user-photo.jpg')}
-                  />
-                </View>
-                {/* Add photo user button */}
-                <View style={styles.photoButtonContainer}>
-                  <AddPhotoBtnIcon width={25} height={25} />
-                  {/* <AddPhotoImage
-                    width={25}
-                    height={25}
-                    // onPress={() => {
-                    //   Alert.alert(
-                    //     'Alert',
-                    //     'This functionality is under development...',
-                    //   );  }
-                  /> */}
-                </View>
-              </View>
-
               {/* Form header */}
               <View style={styles.formHeader}>
-                <Text style={styles.formHeaderTitle}>Реєстрація</Text>
-              </View>
-
-              {/* Login input */}
-              <View>
-                <TextInput
-                  style={focusInputStyle(loginFocus)}
-                  value={login}
-                  onChangeText={onChangeLogin}
-                  placeholder="Логін"
-                  onFocus={() => {
-                    setIsKeyboardOpen(true), setLoginFocus(true);
-                  }}
-                  onBlur={() => {
-                    setLoginFocus(false);
-                  }}
-                />
+                <Text style={styles.formHeaderTitle}>Увійти</Text>
               </View>
 
               {/* Email input */}
-              <View
-                style={{
-                  marginTop: 16,
-                }}
-              >
+              <View>
                 <TextInput
                   style={focusInputStyle(emailFocus)}
                   value={email}
@@ -170,7 +139,12 @@ const RegisterScreen = () => {
               </View>
 
               {/* Password input */}
-              <View style={{ marginTop: 16 }}>
+              <View
+                style={{
+                  marginTop: 16,
+                  marginBottom: isKeyboardOpen ? 32 : 43,
+                }}
+              >
                 <TextInput
                   style={focusInputStyle(passwordFocus)}
                   value={password}
@@ -198,30 +172,30 @@ const RegisterScreen = () => {
               {/* Buttons */}
               {!isKeyboardOpen && (
                 <View
-                  style={{
-                    marginTop: 44,
-                  }}
+                // display={isKeyboardOpen ? 'none' : 'flex'}
+                // style={{ display: isKeyboardOpen ? 'none' : 'flex' }}
+                // style={[isKeyboardOpen ? styles.hidden : {}]}
                 >
-                  {/* Register button */}
+                  {/* Login button*/}
                   <TouchableOpacity
-                    style={{ ...styles.registerButton }}
                     activeOpacity={0.6}
-                    onPress={onSubmitRegister}
+                    style={styles.loginButton}
+                    onPress={onSubmitLogin}
                   >
-                    <Text style={styles.registerTitleButton}>
-                      Зареєструватися
-                    </Text>
+                    <Text style={styles.loginTitleButton}>Увійти</Text>
                   </TouchableOpacity>
 
-                  {/* Login button */}
+                  {/* Register Button*/}
                   <TouchableOpacity
-                    style={styles.loginButton}
                     activeOpacity={0.6}
-                    onPress={() => navigation.navigate('Login')}
+                    style={styles.registerButton}
+                    onPress={() => navigation.navigate('Register')}
                   >
-                    <Text style={styles.loginTitleButton}>
-                      Вже є акаунт?{' '}
-                      <Text style={styles.loginTitleButtonAccent}>Увійти</Text>
+                    <Text style={styles.registerTitleButton}>
+                      Немає акаунту?{' '}
+                      <Text style={styles.registerTitleButtonAccent}>
+                        Зареєструватися
+                      </Text>
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -234,4 +208,4 @@ const RegisterScreen = () => {
   );
 };
 
-export { RegisterScreen };
+export default LoginScreen;

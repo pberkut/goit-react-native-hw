@@ -2,12 +2,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Auth screens
-import { LoginScreen, RegisterScreen } from './src/screens/authScreen';
+import { LoginScreen, RegisterScreen } from '../screens/authScreens';
 // Main screens
-import { HomeScreen } from './src/screens/mainScreen';
+import { HomeScreen } from '../screens/rootScreens';
 
 const AuthStack = createStackNavigator();
-const MainTab = createBottomTabNavigator();
+const MainStack = createStackNavigator();
+// const MainTab = createBottomTabNavigator();
 
 const screenOptions = {
   tabBarShowLabel: false,
@@ -31,7 +32,15 @@ const useRoute = isAuthorized => {
     );
   }
 
-  return <HomeScreen />;
+  return (
+    <MainStack.Navigator initialRouteName="Home">
+      <MainStack.Screen
+        options={{ headerShown: false }}
+        component={HomeScreen}
+        name="Home"
+      />
+    </MainStack.Navigator>
+  );
 };
 
 export default useRoute;

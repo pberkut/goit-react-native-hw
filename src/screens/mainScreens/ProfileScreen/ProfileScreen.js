@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-import { styles } from './ProfileScreenStyled';
+import { styles } from './ProfileScreenStyles';
 
 const ProfileScreen = () => {
   return (
@@ -10,4 +10,4 @@ const ProfileScreen = () => {
   );
 };
 
-export { ProfileScreen };
+export default ProfileScreen;

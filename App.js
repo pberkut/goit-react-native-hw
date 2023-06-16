@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
-import useRoute from './router';
+import useRoute from './src/router/router';
 
 // Configuration for Reactotron debugger
 if (__DEV__) {
