@@ -19,7 +19,6 @@ import { useNavigation } from '@react-navigation/native';
 import { styles } from './RegisterScreenStyles';
 
 import { AddPhotoBtnIcon } from '../../../utils/svgIcons';
-// import AddPhotoImage from '../../../assets/images/add-photo.svg';
 
 const backgroundImage = require('../../../assets/images/background-image.jpg');
 

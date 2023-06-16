@@ -14,6 +14,7 @@ import mapPinSvg from '../assets/images/map-pin-icon.svg';
 import commentsSvg from '../assets/images/comments-icon.svg';
 import removeAvatarSvg from '../assets/images/remove-avatar-icon.svg';
 import thumbUpSvg from '../assets/images/thumbs-up-icon.svg';
+import sendSvg from '../assets/images/send-icon.svg';
 
 const AddPhotoBtnIcon = ({ width, height, color }) => (
   <SvgXml width={width} height={height} xml={addPhotoSvg} />
@@ -63,6 +64,10 @@ const ThumbUpIcon = ({ width, height, color }) => (
   <SvgXml xml={thumbUpSvg} width={width} height={height} fill={color} />
 );
 
+const SendIcon = ({ width, height, color }) => (
+  <SvgXml xml={sendSvg} width={width} height={height} fill={color} />
+);
+
 export {
   AddPhotoBtnIcon,
   PostsIcon,
@@ -76,6 +81,7 @@ export {
   CommentsIcon,
   RemoveAvatarIcon,
   ThumbUpIcon,
+  SendIcon,
 };
 
 // import * as React from 'react';
