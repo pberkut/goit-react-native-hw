@@ -1,15 +1,14 @@
 import { View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
 import { styles } from './PostsScreenStyles';
 
+const avatarImage = require('../../../assets/images/userPlaceholder.png');
+
 const PostsScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.userInfo}>
         <View style={styles.imgBox}>
-          <Image
-            style={styles.avatar}
-            source={require('../../../assets/images/userDefault.png')}
-          />
+          <Image style={styles.avatar} source={avatarImage} />
         </View>
         <View style={styles.user}>
           <Text style={styles.name}>Natali Romanova</Text>

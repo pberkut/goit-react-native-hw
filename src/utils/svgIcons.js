@@ -11,6 +11,9 @@ import arrowLeftSvg from '../assets/images/arrow-left-icon.svg';
 import trashSvg from '../assets/images/trash-icon.svg';
 import cameraSvg from '../assets/images/camera-icon.svg';
 import mapPinSvg from '../assets/images/map-pin-icon.svg';
+import commentsSvg from '../assets/images/comments-icon.svg';
+import removeAvatarSvg from '../assets/images/remove-avatar-icon.svg';
+import thumbUpSvg from '../assets/images/thumbs-up-icon.svg';
 
 const AddPhotoBtnIcon = ({ width, height, color }) => (
   <SvgXml width={width} height={height} xml={addPhotoSvg} />
@@ -48,6 +51,18 @@ const MapPinIcon = ({ width, height, color }) => (
   <SvgXml xml={mapPinSvg} width={width} height={height} fill={color} />
 );
 
+const CommentsIcon = ({ width, height, color }) => (
+  <SvgXml xml={commentsSvg} width={width} height={height} fill={color} />
+);
+
+const RemoveAvatarIcon = ({ width, height, color }) => (
+  <SvgXml xml={removeAvatarSvg} width={width} height={height} fill={color} />
+);
+
+const ThumbUpIcon = ({ width, height, color }) => (
+  <SvgXml xml={thumbUpSvg} width={width} height={height} fill={color} />
+);
+
 export {
   AddPhotoBtnIcon,
   PostsIcon,
@@ -58,6 +73,9 @@ export {
   TrashIcon,
   CameraIcon,
   MapPinIcon,
+  CommentsIcon,
+  RemoveAvatarIcon,
+  ThumbUpIcon,
 };
 
 // import * as React from 'react';
