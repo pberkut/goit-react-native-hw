@@ -26,7 +26,12 @@ export const signIn = createAsyncThunk(
   'auth/signin',
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const user = await signInWithEmailAndPassword(auth, email, password);
+      // const user = await signInWithEmailAndPassword(auth, email, password);
+      const user = {
+        auth: true,
+        email,
+        password,
+      };
     } catch ({ message }) {
       return rejectWithValue(message);
     }
@@ -49,14 +54,22 @@ export const refresh = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       return await new Promise((resolve, reject) =>
-        onAuthStateChanged(auth, user => {
-          if (user) {
-            const { uid, displayName, email, photoURL } = user;
-            resolve({ userId: uid, name: displayName, email, photoURL });
-          } else {
-            return rejectWithValue('Unable to fetch user');
-          }
-        }),
+        // onAuthStateChanged(auth, user => {
+        //   if (user) {
+        //     const { uid, displayName, email, photoURL } = user;
+        //     resolve({ userId: uid, name: displayName, email, photoURL });
+        //   } else {
+        //     return rejectWithValue('Unable to fetch user');
+        //   }
+        // }),
+        {
+          resolve({
+            userId: 12,
+            name: 'Natalii',
+            email: 'example@mail.com',
+            photoURL: '1231',
+          });
+        },
       );
     } catch ({ message }) {
       return rejectWithValue(message);

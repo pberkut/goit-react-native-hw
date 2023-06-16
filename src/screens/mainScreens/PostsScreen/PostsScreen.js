@@ -1,9 +1,13 @@
+import { useState, useEffect } from 'react';
+
 import { View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
-import { styles } from './PostsScreenStyles';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../../redux/auth/authSelectors';
-import { db } from '../../firebase/config';
 import { collection, onSnapshot } from '@firebase/firestore';
+import { useSelector } from 'react-redux';
+
+import { selectUser } from '../../../redux/auth/authSelectors';
+import { db } from '../../../firebase/config';
+
+import { styles } from './PostsScreenStyles';
 
 const avatarImage = require('../../../assets/images/placeholder/avatarPlaceholder.jpg');
 

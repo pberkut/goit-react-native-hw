@@ -1,10 +1,14 @@
+import { useState, useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUser } from '../../redux/auth/authSelectors';
 
 import {
   PostsScreen,
   CreatePostsScreen,
   ProfileScreen,
-} from '../../mainScreens';
+} from '../../screens/mainScreens';
 
 import {
   PostsIcon,
@@ -12,19 +16,22 @@ import {
   ProfileIcon,
   LogoutIcon,
   ArrowLeftIcon,
-} from '../../../utils/svgIcons';
-import { styles } from './HomeScreenStyles';
+} from '../../utils/svgIcons';
+import { styles } from './bottomTabNavigationStyles';
 import { TouchableOpacity } from 'react-native';
+
 const MainTab = createBottomTabNavigator();
 
 const TabRouter = () => {
-  useEffect(() => {
-    dispatch(refresh());
-  }, [dispatch]);
-
   const dispatch = useDispatch();
   const [loggingOut, setLoggingOut] = useState(false);
+
+  // useEffect(() => {
+  //   dispatch(refresh());
+  // }, [dispatch]);
+
   const logOut = () => dispatch(signout());
+
   const onLogout = () => {
     if (loggingOut) {
       logOut();
@@ -61,7 +68,7 @@ const TabRouter = () => {
             <PostsIcon color={color} width={40} height={40} />
           ),
           headerRight: () => (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onLogout}>
               <LogoutIcon width={24} height={24} />
             </TouchableOpacity>
           ),
@@ -70,7 +77,7 @@ const TabRouter = () => {
       <MainTab.Screen
         name="Створити публікацію"
         component={CreatePostsScreen}
-        options={{
+        options={({ navigation }) => ({
           headerTitleAlign: 'center',
           headerTitleStyle: styles.headerTitleStyle,
           tabBarIcon: ({ focused, color, size }) => {
@@ -82,7 +89,7 @@ const TabRouter = () => {
               <ArrowLeftIcon width={24} height={24} />
             </TouchableOpacity>
           ),
-        }}
+        })}
       />
       <MainTab.Screen
         name="Профіль"

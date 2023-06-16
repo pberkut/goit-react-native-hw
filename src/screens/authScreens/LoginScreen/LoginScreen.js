@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   ImageBackground,
@@ -15,14 +14,18 @@ import {
   Alert,
 } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { refresh, signIn } from '../../../redux/auth/authOperations';
+import { selectUser } from '../../../redux/auth/authSelectors';
+
+// import { useNavigation } from '@react-navigation/native';
 
 import { styles } from './LoginScreenStyles';
 
 const backgroundImage = require('../../../assets/images/background-image.jpg');
 
-const LoginScreen = () => {
-  const navigation = useNavigation();
+const LoginScreen = ({ navigation }) => {
+  // const navigation = useNavigation();
 
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
 
@@ -32,6 +35,13 @@ const LoginScreen = () => {
   const [password, setPassword] = useState('');
   const [passwordFocus, setPasswordFocus] = useState(false);
   const [isSecurePassword, setIsSecurePassword] = useState(true);
+
+  const dispatch = useDispatch();
+  const { userId } = useSelector(selectUser);
+
+  useEffect(() => {
+    dispatch(refresh());
+  }, [dispatch]);
 
   const [dimensions, setDimensions] = useState(
     Dimensions.get('window').width - 16 * 2,
@@ -87,10 +97,17 @@ const LoginScreen = () => {
 
   // Form submit
   const onSubmitLogin = () => {
+    // if (email === '' || password === '') {
+    //   return Alert.alert('Error', 'Please fill in all fields! And try again!');
+    // }
+
     const userCredentials = { email, password };
+    dispatch(signIn(userCredentials));
+
     setIsSecurePassword(true);
     console.log(userCredentials);
-    resetLoginForm();
+    // userId && resetLoginForm();
+    // resetLoginForm();
   };
 
   const resetLoginForm = () => {

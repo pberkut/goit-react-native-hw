@@ -1,6 +1,6 @@
 .web/cache
 
-
+.env
 
 # yarn
 .yarn/install-state.*
