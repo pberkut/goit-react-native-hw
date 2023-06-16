@@ -27,7 +27,7 @@ const ProfileScreen = () => {
 
   const onLogout = () => {
     if (loggingOut) {
-      logOut();
+      // logOut();
       // setLoggingOut(false);
     } else {
       // setLoggingOut(true);
@@ -41,6 +41,7 @@ const ProfileScreen = () => {
       );
     }
   };
+
   return (
     <View style={styles.bgImageContainer}>
       <ImageBackground source={backgroundImage} style={styles.BgImage}>
