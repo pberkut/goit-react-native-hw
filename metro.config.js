@@ -1,5 +1,5 @@
 const { getDefaultConfig } = require('metro-config');
-
+0;
 module.exports = (async () => {
   const {
     resolver: { sourceExts, assetExts },

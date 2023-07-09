@@ -1,20 +1,22 @@
 import { View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
 import { styles } from './PostsScreenStyles';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../redux/auth/authSelectors';
-import { db } from '../../firebase/config';
-import { collection, onSnapshot } from '@firebase/firestore';
+// import { useSelector } from 'react-redux';
+// import { selectUser } from '../../../redux/auth/authSelectors';
+// import { db } from '../../firebase/config';
+// import { collection, onSnapshot } from '@firebase/firestore';
 
 const avatarImage = require('../../../assets/images/placeholder/avatarPlaceholder.jpg');
 
 const PostsScreen = () => {
   const [posts, setPosts] = useState([]);
-  const { userId, name, email, photoURL } = useSelector(selectUser);
+  // const { userId, name, email, photoURL } = useSelector(selectUser);
 
   const getAllPost = async () => {
-    await onSnapshot(collection(db, 'posts'), snapshots => {
-      setPosts(snapshots.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-    });
+    // await onSnapshot(collection(db, 'posts'), snapshots => {
+    //   setPosts(snapshots.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+    // });
   };
 
   useEffect(() => {

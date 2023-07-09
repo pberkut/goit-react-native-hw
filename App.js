@@ -14,7 +14,7 @@ if (__DEV__) {
 }
 
 export default function App() {
-  const routing = useRoute({});
+  const routing = useRoute(null);
 
   // Add fonts & SplashScreen
   SplashScreen.preventAutoHideAsync();
