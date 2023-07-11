@@ -44,7 +44,7 @@ const PostsScreen = () => {
               <TouchableOpacity
                 onPress={() => navigation.navigate('CommentsScreen')}
               >
-                <Text>Coments</Text>
+                <Text>Comments</Text>
                 <Ionicons name="chatbubble-outline" size={24} color="#BDBDBD" />
               </TouchableOpacity>
 

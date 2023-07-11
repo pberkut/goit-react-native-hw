@@ -22,7 +22,7 @@ const backgroundImage = require('../../../assets/images/background-image.jpg');
 const avatarImage = require('../../../assets/images/placeholder/avatarPlaceholder.jpg');
 const photoPlaceholder = require('../../../assets/images/placeholder/imagePlaceholder.jpg');
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
   const [loggingOut, setLoggingOut] = useState(false);
 
   const onLogout = () => {

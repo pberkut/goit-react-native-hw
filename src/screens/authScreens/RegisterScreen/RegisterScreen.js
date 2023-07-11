@@ -19,6 +19,7 @@ import { useNavigation } from '@react-navigation/native';
 import { styles } from './RegisterScreenStyles';
 
 import { AddPhotoBtnIcon } from '../../../utils/svgIcons';
+import { Alert } from 'react-native';
 
 const backgroundImage = require('../../../assets/images/background-image.jpg');
 
@@ -74,6 +75,22 @@ const RegisterScreen = () => {
   // Form submit
   const onSubmitRegister = () => {
     const userCredentials = { login, email, password };
+
+    // Checked validation form
+    const strongRegex = new RegExp(
+      '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$',
+    );
+    if (login.length < 3) {
+      showAlert('Логін', 'Логін повинен бути більше 3 символів');
+      return;
+    } else if (!strongRegex.test(email)) {
+      showAlert('Адреса електронної пошти', 'Введіть дійсну електрону пошту');
+      return;
+    } else if (password.length < 8) {
+      showAlert('Пароль', 'Довжина паролю повинна бути більше 8 символів');
+      return;
+    }
+
     setIsSecurePassword(true);
     console.log(userCredentials);
     resetRegisterForm();
@@ -83,6 +100,12 @@ const RegisterScreen = () => {
     setLogin('');
     setEmail('');
     setPassword('');
+  };
+
+  const showAlert = (title, message) => {
+    Alert.alert(title, message, [{ text: 'Ok' }], {
+      cancelable: true,
+    });
   };
 
   return (
@@ -145,6 +168,7 @@ const RegisterScreen = () => {
                   onBlur={() => {
                     setLoginFocus(false);
                   }}
+                  autoComplete="name"
                 />
               </View>
 
@@ -165,6 +189,7 @@ const RegisterScreen = () => {
                   onBlur={() => {
                     setEmailFocus(false);
                   }}
+                  autoComplete="email"
                 />
               </View>
 
@@ -182,6 +207,7 @@ const RegisterScreen = () => {
                   onBlur={() => {
                     setPasswordFocus(false);
                   }}
+                  autoComplete="password"
                 />
                 <TouchableOpacity
                   activeOpacity={0.8}

@@ -88,6 +88,20 @@ const LoginScreen = () => {
   // Form submit
   const onSubmitLogin = () => {
     const userCredentials = { email, password };
+
+    // Checked validation form
+    const strongRegex = new RegExp(
+      '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$',
+    );
+
+    if (!strongRegex.test(email)) {
+      showAlert('Адреса електронної пошти', 'Введіть дійсну електрону пошту');
+      return;
+    } else if (password.length < 8) {
+      showAlert('Пароль', 'Довжина паролю повинна бути більше 8 символів');
+      return;
+    }
+
     setIsSecurePassword(true);
     console.log(userCredentials);
     resetLoginForm();
@@ -96,6 +110,12 @@ const LoginScreen = () => {
   const resetLoginForm = () => {
     setEmail('');
     setPassword('');
+  };
+
+  const showAlert = (title, message) => {
+    Alert.alert(title, message, [{ text: 'Ok' }], {
+      cancelable: true,
+    });
   };
 
   return (
@@ -135,6 +155,7 @@ const LoginScreen = () => {
                   onBlur={() => {
                     setEmailFocus(false);
                   }}
+                  autoComplete="email"
                 />
               </View>
 
@@ -157,6 +178,7 @@ const LoginScreen = () => {
                   onBlur={() => {
                     setPasswordFocus(false);
                   }}
+                  autoComplete="password"
                 />
                 <TouchableOpacity
                   activeOpacity={0.8}
