@@ -17,7 +17,7 @@ const screenOptions = {
   tabBarShowLabel: false,
 };
 
-/* const useRoute = isAuthorized => {
+const useRoute = isAuthorized => {
   if (!isAuthorized) {
     return (
       <AuthStack.Navigator initialRouteName="Login">
@@ -42,39 +42,17 @@ const screenOptions = {
         component={HomeScreen}
         options={{ headerShown: false }}
       />
-    </MainStack.Navigator>
-  );
-}; */
-
-const useRoute = () => {
-  return (
-    <AuthStack.Navigator initialRouteName="Login">
-      <AuthStack.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{ headerShown: false }}
-      />
-      <AuthStack.Screen
-        name="Register"
-        component={RegisterScreen}
-        options={{ headerShown: false }}
-      />
-      <AuthStack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{ headerShown: false }}
-      />
-      <AuthStack.Screen
+      <MainStack.Screen
         name="Comments"
         component={CommentsScreen}
         options={{ headerShown: false }}
       />
-      <AuthStack.Screen
+      <MainStack.Screen
         name="Map"
         component={MapScreen}
         options={{ headerShown: false }}
       />
-    </AuthStack.Navigator>
+    </MainStack.Navigator>
   );
 };
 

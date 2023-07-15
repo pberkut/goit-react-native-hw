@@ -7,15 +7,10 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
 import useRoute from './src/router/router';
-
-// Configuration for Reactotron debugger
-if (__DEV__) {
-  import('./ReactotronConfig').then(() => console.log('Reactotron Configured'));
-  console.log('I am in debug');
-}
+import { MapScreen } from './src/screens/nestedScreens';
 
 export default function App() {
-  const routing = useRoute(false);
+  const routing = useRoute(true);
 
   // Add fonts & SplashScreen
   SplashScreen.preventAutoHideAsync();
@@ -39,7 +34,10 @@ export default function App() {
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      <NavigationContainer>{routing}</NavigationContainer>
+      <NavigationContainer>
+        {routing}
+        {/* <MapScreen /> */}
+      </NavigationContainer>
     </View>
   );
 }

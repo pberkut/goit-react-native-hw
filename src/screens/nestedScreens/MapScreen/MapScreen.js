@@ -1,8 +1,7 @@
-import React from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import { StyleSheet, View } from 'react-native';
 
-const MapScreen = () => {
+export default function App() {
   return (
     <View style={styles.container}>
       <MapView
@@ -13,10 +12,6 @@ const MapScreen = () => {
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
-        mapType="standard"
-        minZoomLevel={15}
-        onMapReady={() => console.log('Map is ready')}
-        onRegionChange={() => console.log('Region change')}
       >
         <Marker
           title="I am here"
@@ -26,19 +21,14 @@ const MapScreen = () => {
       </MapView>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   mapStyle: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+    width: '100%',
+    height: '100%',
   },
 });
-
-export default MapScreen;
