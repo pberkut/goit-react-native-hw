@@ -90,7 +90,8 @@ const LoginScreen = () => {
     const userCredentials = { email, password };
 
     // Checked validation form
-    const strongRegex = new RegExp(
+
+    /*     const strongRegex = new RegExp(
       '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$',
     );
 
@@ -100,11 +101,13 @@ const LoginScreen = () => {
     } else if (password.length < 8) {
       showAlert('Пароль', 'Довжина паролю повинна бути більше 8 символів');
       return;
-    }
+    } */
 
     setIsSecurePassword(true);
     console.log(userCredentials);
     resetLoginForm();
+
+    navigation.navigate('Home', { userCredentials });
   };
 
   const resetLoginForm = () => {

@@ -1,4 +1,5 @@
 // import { StatusBar } from 'expo-status-bar';
+import 'react-native-gesture-handler';
 import { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -14,7 +15,7 @@ if (__DEV__) {
 }
 
 export default function App() {
-  const routing = useRoute(null);
+  const routing = useRoute(false);
 
   // Add fonts & SplashScreen
   SplashScreen.preventAutoHideAsync();

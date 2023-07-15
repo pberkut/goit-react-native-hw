@@ -1,6 +1,7 @@
+import 'react-native-gesture-handler';
 // import { useEffect } from 'react';
 // import { View, Button, StyleSheet, Text } from 'react-native';
-// import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import {
@@ -20,11 +21,13 @@ import {
 import { styles } from './HomeScreenStyles';
 import { TouchableOpacity } from 'react-native';
 
-const MainTab = createBottomTabNavigator();
+const MainTabs = createBottomTabNavigator();
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
+  const navigation = useNavigation();
+
   return (
-    <MainTab.Navigator
+    <MainTabs.Navigator
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle: styles.tabBarStyles,
@@ -32,7 +35,7 @@ const HomeScreen = ({ navigation }) => {
         tabBarActiveTintColor: '#FF6C00',
       }}
     >
-      <MainTab.Screen
+      <MainTabs.Screen
         name="Публікації"
         component={PostsScreen}
         options={{
@@ -42,13 +45,13 @@ const HomeScreen = ({ navigation }) => {
             <PostsIcon color={color} width={40} height={40} />
           ),
           headerRight: () => (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
               <LogoutIcon width={24} height={24} />
             </TouchableOpacity>
           ),
         }}
       />
-      <MainTab.Screen
+      <MainTabs.Screen
         name="Створити публікацію"
         component={CreatePostsScreen}
         options={{
@@ -65,7 +68,7 @@ const HomeScreen = ({ navigation }) => {
           ),
         }}
       />
-      <MainTab.Screen
+      <MainTabs.Screen
         name="Профіль"
         component={ProfileScreen}
         options={{
@@ -75,7 +78,7 @@ const HomeScreen = ({ navigation }) => {
           },
         }}
       />
-    </MainTab.Navigator>
+    </MainTabs.Navigator>
   );
 };
 

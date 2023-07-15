@@ -1,11 +1,19 @@
-import { View, StyleSheet, Text } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import { styles } from './CommentsScreenStyles';
 import { SendIcon } from '../../../utils/svgIcons';
+import { useState } from 'react';
+import { Alert } from 'react-native';
 
 const CommentsScreen = ({ route }) => {
-  const { postId } = route.params;
+  // const { postId } = route.params;
   const [comment, setComment] = useState('');
-  const { name } = useSelector(selectUser);
+  // const { name } = useSelector(selectUser);
   const createComment = async () => {};
   // console.log("photo", photo);
   // console.log("route.params", route.params);
@@ -14,7 +22,7 @@ const CommentsScreen = ({ route }) => {
       <View style={styles.imageWrapper}>
         {/* <Image
           source={{ uri: photo }}
-          style={{ width: "100%", heqight: "100%" }}
+          style={{ width: "100%", height: "100%" }}
         /> */}
       </View>
       <View style={styles.inputWrapper}>

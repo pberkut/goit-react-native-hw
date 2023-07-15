@@ -23,23 +23,25 @@ const avatarImage = require('../../../assets/images/placeholder/avatarPlaceholde
 const photoPlaceholder = require('../../../assets/images/placeholder/imagePlaceholder.jpg');
 
 const ProfileScreen = ({ navigation }) => {
-  const [loggingOut, setLoggingOut] = useState(false);
+  // const [loggingOut, setLoggingOut] = useState(false);
 
   const onLogout = () => {
-    if (loggingOut) {
-      // logOut();
-      // setLoggingOut(false);
-    } else {
-      // setLoggingOut(true);
-      Alert.alert(
-        'Confirm Logout',
-        'Are you sure you want to log out of the app?',
-        [
-          { text: 'Yes', onPress: logOut },
-          { text: 'NO', onPress: () => setLoggingOut(false) },
-        ],
-      );
-    }
+    // if (loggingOut) {
+    //   // logOut();
+    //   // setLoggingOut(false);
+    // } else {
+    //   // setLoggingOut(true);
+    //   Alert.alert(
+    //     'Confirm Logout',
+    //     'Are you sure you want to log out of the app?',
+    //     [
+    //       { text: 'Yes', onPress: logOut },
+    //       { text: 'NO', onPress: () => setLoggingOut(false) },
+    //     ],
+    //   );
+    // }
+
+    navigation.navigate('Login');
   };
 
   return (
@@ -57,6 +59,8 @@ const ProfileScreen = ({ navigation }) => {
               </TouchableOpacity>
             </View>
           </View>
+
+          {/* Logout button */}
           <View style={styles.logoutContainer}>
             <TouchableOpacity onPress={onLogout}>
               <View style={{ marginRight: 10 }}>
