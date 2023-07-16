@@ -1,14 +1,13 @@
 import 'react-native-gesture-handler';
 // import { useEffect } from 'react';
-// import { View, Button, StyleSheet, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import {
-  PostsScreen,
-  CreatePostsScreen,
-  ProfileScreen,
-} from '../../mainScreens';
+// import { PostsScreen, CreatePostsScreen, ProfileScreen } from './';
+import PostsScreen from './PostsScreen';
+import CreatePostsScreen from './CreatePostsScreen';
+import ProfileScreen from './ProfileScreen';
 
 import {
   PostsIcon,
@@ -16,9 +15,8 @@ import {
   ProfileIcon,
   LogoutIcon,
   ArrowLeftIcon,
-} from '../../../utils/svgIcons';
+} from '../../utils/svgIcons';
 
-import { styles } from './HomeScreenStyles';
 import { TouchableOpacity } from 'react-native';
 
 const MainTabs = createBottomTabNavigator();
@@ -82,12 +80,36 @@ const HomeScreen = () => {
   );
 };
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-// });
-
 export default HomeScreen;
+
+const styles = StyleSheet.create({
+  tabBarStyles: {
+    paddingTop: 9,
+    height: 83,
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+  },
+  headerTitleStyle: {
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontSize: 17,
+    fontWeight: '500',
+    lineHeight: 22,
+    letterSpacing: -0.408,
+    color: '#212121',
+  },
+  headerLeftContainerStyle: {
+    marginLeft: 16,
+  },
+  exitBtn: {
+    paddingRight: 16,
+  },
+
+  addBtn: {
+    width: 70,
+
+    borderRadius: 20,
+    backgroundColor: '#FF6C00',
+  },
+});

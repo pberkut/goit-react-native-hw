@@ -7,7 +7,6 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
 import useRoute from './src/router/router';
-import { MapScreen } from './src/screens/nestedScreens';
 
 export default function App() {
   const routing = useRoute(true);
@@ -34,10 +33,7 @@ export default function App() {
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      <NavigationContainer>
-        {routing}
-        {/* <MapScreen /> */}
-      </NavigationContainer>
+      <NavigationContainer>{routing}</NavigationContainer>
     </View>
   );
 }

@@ -1,17 +1,12 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Auth screens
-import { LoginScreen, RegisterScreen } from '../screens/authScreens';
+import { LoginScreen, RegisterScreen } from '../screens/auth';
 // Main screens
-import { HomeScreen } from '../screens/rootScreens';
-
-// Nested screens
-import { CommentsScreen, MapScreen } from '../screens/nestedScreens';
+import { HomeScreen, CommentsScreen, MapScreen } from '../screens/main';
 
 const AuthStack = createStackNavigator();
 const MainStack = createStackNavigator();
-// const MainTab = createBottomTabNavigator();
 
 const screenOptions = {
   tabBarShowLabel: false,

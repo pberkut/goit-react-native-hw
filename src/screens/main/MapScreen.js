@@ -1,8 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
-import { styles } from './MapScreenStyles';
-
 const MapScreen = ({ route }) => {
   // const { latitude, longitude } = route.params.location.coords;
   const latitude = false;
@@ -34,3 +32,13 @@ const MapScreen = ({ route }) => {
 };
 
 export default MapScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  mapStyles: {
+    width: '100%',
+    height: '100%',
+  },
+});
