@@ -11,13 +11,13 @@ const MapScreen = ({ route }) => {
       <MapView
         style={styles.mapStyles}
         initialRegion={{
-          // latitude: latitude ? latitude : '51.5085300',
-          // longitude: longitude ? longitude : '0.1257400',
+          latitude: 51,
+          longitude: 0.12574,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
       >
-        <Marker
+        {/* <Marker
           coordinate={
             {
               // latitude: latitude ? latitude : '51.5085300',
@@ -25,7 +25,7 @@ const MapScreen = ({ route }) => {
             }
           }
           title="Travel photo"
-        />
+        /> */}
       </MapView>
     </View>
   );

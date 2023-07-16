@@ -18,12 +18,14 @@ import {
   RemoveAvatarIcon,
   ThumbUpIcon,
 } from '../../utils/svgIcons';
+import { useNavigation } from '@react-navigation/native';
 
 const backgroundImage = require('../../assets/images/background-image.jpg');
 const avatarImage = require('../../assets/images/placeholder/avatarPlaceholder.jpg');
 const photoPlaceholder = require('../../assets/images/placeholder/imagePlaceholder.jpg');
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = () => {
+  const navigation = useNavigation();
   // const [loggingOut, setLoggingOut] = useState(false);
 
   const onLogout = () => {

@@ -1,9 +1,15 @@
 import { createStackNavigator } from '@react-navigation/stack';
 
 // Auth screens
-import { LoginScreen, RegisterScreen } from '../screens/auth';
+import LoginScreen from '../screens/auth/LoginScreen';
+import RegisterScreen from '../screens/auth/RegisterScreen';
 // Main screens
-import { HomeScreen, CommentsScreen, MapScreen } from '../screens/main';
+import HomeScreen from '../screens/mainScreen/HomeScreen';
+import CreatePostsScreen from '../screens/mainScreen/CreatePostsScreen';
+import PostsScreen from '../screens/mainScreen/PostsScreen';
+import ProfileScreen from '../screens/mainScreen/ProfileScreen';
+import CommentsScreen from '../screens/nestedScreens/CommentsScreen';
+import MapScreen from '../screens/nestedScreens/MapScreen';
 
 const AuthStack = createStackNavigator();
 const MainStack = createStackNavigator();
@@ -40,12 +46,12 @@ const useRoute = isAuthorized => {
       <MainStack.Screen
         name="Comments"
         component={CommentsScreen}
-        options={{ headerShown: false }}
+        options={{ title: 'Коментарі', headerTitleAlign: 'center' }}
       />
       <MainStack.Screen
         name="Map"
         component={MapScreen}
-        options={{ headerShown: false }}
+        options={{ title: 'Карта', headerTitleAlign: 'center' }}
       />
     </MainStack.Navigator>
   );

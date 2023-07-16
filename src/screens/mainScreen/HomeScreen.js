@@ -1,11 +1,10 @@
 import 'react-native-gesture-handler';
 // import { useEffect } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-// import { PostsScreen, CreatePostsScreen, ProfileScreen } from './';
-import PostsScreen from './PostsScreen';
+import PostsScreen from '../nestedScreens/DefaultPostsScreen';
 import CreatePostsScreen from './CreatePostsScreen';
 import ProfileScreen from './ProfileScreen';
 
@@ -16,8 +15,6 @@ import {
   LogoutIcon,
   ArrowLeftIcon,
 } from '../../utils/svgIcons';
-
-import { TouchableOpacity } from 'react-native';
 
 const MainTabs = createBottomTabNavigator();
 
@@ -34,9 +31,10 @@ const HomeScreen = () => {
       }}
     >
       <MainTabs.Screen
-        name="Публікації"
+        name="Posts"
         component={PostsScreen}
         options={{
+          title: 'Публікації',
           headerTitleAlign: 'center',
           headerTitleStyle: styles.headerTitleStyle,
           tabBarIcon: ({ focused, color, size }) => (
@@ -50,9 +48,10 @@ const HomeScreen = () => {
         }}
       />
       <MainTabs.Screen
-        name="Створити публікацію"
+        name="CreatePosts"
         component={CreatePostsScreen}
         options={{
+          title: 'Створити публікацію',
           headerTitleAlign: 'center',
           headerTitleStyle: styles.headerTitleStyle,
           tabBarIcon: ({ focused, color, size }) => {
@@ -67,7 +66,7 @@ const HomeScreen = () => {
         }}
       />
       <MainTabs.Screen
-        name="Профіль"
+        name="Profile"
         component={ProfileScreen}
         options={{
           headerShown: false,

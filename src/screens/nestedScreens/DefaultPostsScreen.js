@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 // import { useSelector } from 'react-redux';
 // import { selectUser } from '../../../redux/auth/authSelectors';
 // import { db } from '../../firebase/config';
@@ -15,7 +16,9 @@ import { useSelector } from 'react-redux';
 
 const avatarImage = require('../../assets/images/placeholder/avatarPlaceholder.jpg');
 
-const PostsScreen = () => {
+const DefaultPostsScreen = () => {
+  const navigation = useNavigation();
+
   const [posts, setPosts] = useState([]);
   // const { userId, name, email, photoURL } = useSelector(selectUser);
 
@@ -28,6 +31,7 @@ const PostsScreen = () => {
   useEffect(() => {
     getAllPost();
   }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.userInfo}>
@@ -47,18 +51,12 @@ const PostsScreen = () => {
             <Image source={{ uri: item.photo }} style={styles.post} />
             <Text>{item.title}</Text>
             <View style={styles.navBtn}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('CommentsScreen')}
-              >
+              <TouchableOpacity onPress={() => navigation.navigate('Comments')}>
                 <Text>Comments</Text>
                 <Ionicons name="chatbubble-outline" size={24} color="#BDBDBD" />
               </TouchableOpacity>
 
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('MapScreen', { coords: item.coords })
-                }
-              >
+              <TouchableOpacity onPress={() => navigation.navigate('Map')}>
                 <Text>{item.locationName}</Text>
 
                 <Ionicons name="location-outline" size={24} color="#BDBDBD" />
@@ -71,7 +69,7 @@ const PostsScreen = () => {
   );
 };
 
-export default PostsScreen;
+export default DefaultPostsScreen;
 
 const styles = StyleSheet.create({
   container: {
