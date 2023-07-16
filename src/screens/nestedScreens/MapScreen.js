@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
 const MapScreen = ({ route }) => {
@@ -9,7 +9,7 @@ const MapScreen = ({ route }) => {
   return (
     <View style={styles.container}>
       <MapView
-        style={styles.mapStyles}
+        style={styles.mapStyle}
         initialRegion={{
           latitude: 51,
           longitude: 0.12574,
@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  mapStyles: {
-    width: '100%',
-    height: '100%',
+  mapStyle: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
   },
 });

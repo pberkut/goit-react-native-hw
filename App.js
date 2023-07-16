@@ -8,8 +8,10 @@ import * as SplashScreen from 'expo-splash-screen';
 
 import useRoute from './src/router/router';
 
+let isAuthorized = null;
+
 export default function App() {
-  const routing = useRoute(true);
+  const routing = useRoute(isAuthorized);
 
   // Add fonts & SplashScreen
   SplashScreen.preventAutoHideAsync();

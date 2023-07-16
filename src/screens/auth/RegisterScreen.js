@@ -75,7 +75,7 @@ const RegisterScreen = () => {
     const userCredentials = { login, email, password };
 
     // Checked validation form
-    /*  const strongRegex = new RegExp(
+    const strongRegex = new RegExp(
       '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$',
     );
     if (login.length < 3) {
@@ -87,7 +87,7 @@ const RegisterScreen = () => {
     } else if (password.length < 8) {
       showAlert('Пароль', 'Довжина паролю повинна бути більше 8 символів');
       return;
-    } */
+    }
 
     setIsSecurePassword(true);
     console.log(userCredentials);

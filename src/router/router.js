@@ -18,43 +18,74 @@ const screenOptions = {
   tabBarShowLabel: false,
 };
 
-const useRoute = isAuthorized => {
-  if (!isAuthorized) {
-    return (
-      <AuthStack.Navigator initialRouteName="Login">
-        <AuthStack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{ headerShown: false }}
-        />
-        <AuthStack.Screen
-          name="Register"
-          component={RegisterScreen}
-          options={{ headerShown: false }}
-        />
-      </AuthStack.Navigator>
-    );
-  }
+// const useRoute = isAuthorized => {
+//   if (!isAuthorized) {
+//     return (
+//       <AuthStack.Navigator initialRouteName="Login">
+//         <AuthStack.Screen
+//           name="Login"
+//           component={LoginScreen}
+//           options={{ headerShown: false }}
+//         />
+//         <AuthStack.Screen
+//           name="Register"
+//           component={RegisterScreen}
+//           options={{ headerShown: false }}
+//         />
+//       </AuthStack.Navigator>
+//     );
+//   }
 
+//   return (
+//     <MainStack.Navigator initialRouteName="Home">
+//       <MainStack.Screen
+//         name="Home"
+//         component={HomeScreen}
+//         options={{ headerShown: false }}
+//       />
+//       <MainStack.Screen
+//         name="Comments"
+//         component={CommentsScreen}
+//         options={{ title: 'Коментарі', headerTitleAlign: 'center' }}
+//       />
+//       <MainStack.Screen
+//         name="Map"
+//         component={MapScreen}
+//         options={{ title: 'Карта', headerTitleAlign: 'center' }}
+//       />
+//     </MainStack.Navigator>
+//   );
+// };
+
+const useRoute = isAuthorized => {
   return (
-    <MainStack.Navigator initialRouteName="Home">
-      <MainStack.Screen
+    <AuthStack.Navigator initialRouteName="Login">
+      <AuthStack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+      <AuthStack.Screen
+        name="Register"
+        component={RegisterScreen}
+        options={{ headerShown: false }}
+      />
+      <AuthStack.Screen
         name="Home"
         component={HomeScreen}
         options={{ headerShown: false }}
       />
-      <MainStack.Screen
+      <AuthStack.Screen
         name="Comments"
         component={CommentsScreen}
         options={{ title: 'Коментарі', headerTitleAlign: 'center' }}
       />
-      <MainStack.Screen
+      <AuthStack.Screen
         name="Map"
         component={MapScreen}
         options={{ title: 'Карта', headerTitleAlign: 'center' }}
       />
-    </MainStack.Navigator>
+    </AuthStack.Navigator>
   );
 };
-
 export default useRoute;
