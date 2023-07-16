@@ -8,7 +8,7 @@ import * as SplashScreen from 'expo-splash-screen';
 
 import useRoute from './src/router/router';
 
-let isAuthorized = null;
+let isAuthorized = {};
 
 export default function App() {
   const routing = useRoute(isAuthorized);

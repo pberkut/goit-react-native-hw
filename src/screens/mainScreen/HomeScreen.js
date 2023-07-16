@@ -4,7 +4,9 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import PostsScreen from '../nestedScreens/DefaultPostsScreen';
+import { palette } from '../../utils/paletteVariables';
+
+import PostsScreen from '../mainScreen/PostsScreen';
 import CreatePostsScreen from './CreatePostsScreen';
 import ProfileScreen from './ProfileScreen';
 
@@ -27,7 +29,7 @@ const HomeScreen = () => {
         tabBarShowLabel: false,
         tabBarStyle: styles.tabBarStyles,
         headerRightContainerStyle: styles.exitBtn,
-        tabBarActiveTintColor: '#FF6C00',
+        tabBarActiveTintColor: palette.accent,
       }}
     >
       <MainTabs.Screen

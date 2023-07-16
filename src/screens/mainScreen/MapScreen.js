@@ -11,21 +11,19 @@ const MapScreen = ({ route }) => {
       <MapView
         style={styles.mapStyle}
         initialRegion={{
-          latitude: 51,
-          longitude: 0.12574,
+          latitude: 50.475903,
+          longitude: 30.622588,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
       >
-        {/* <Marker
-          coordinate={
-            {
-              // latitude: latitude ? latitude : '51.5085300',
-              // longitude: longitude ? longitude : '0.1257400',
-            }
-          }
+        <Marker
+          coordinate={{
+            latitude: 50.475903,
+            longitude: 30.622588,
+          }}
           title="Travel photo"
-        /> */}
+        />
       </MapView>
     </View>
   );
@@ -36,6 +34,9 @@ export default MapScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   mapStyle: {
     width: Dimensions.get('window').width,
