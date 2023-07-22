@@ -16,11 +16,7 @@ const MapScreen = ({ route }) => {
         showsUserLocation={true}
       >
         {location && (
-          <Marker
-            title="Photo is made here"
-            coordinate={location}
-            description="Hello World"
-          />
+          <Marker title="Photo is made here" coordinate={location} />
         )}
       </MapView>
     </View>
@@ -37,7 +33,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   mapStyle: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width * 0.9,
+    height: Dimensions.get('window').height * 0.9,
   },
 });
