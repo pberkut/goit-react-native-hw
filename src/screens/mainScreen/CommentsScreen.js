@@ -1,45 +1,85 @@
 import {
   View,
   StyleSheet,
-  Text,
+  ScrollView,
+  Image,
   TextInput,
   TouchableOpacity,
-  Alert,
+  Keyboard,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  FlatList,
   Dimensions,
 } from 'react-native';
-import { SendIcon } from '../../utils/svgIcons';
-import { useState } from 'react';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { useEffect, useState } from 'react';
+import { useAuth } from '../../hooks/useAuth';
+import { usePosts } from '../../hooks/usePosts';
+import { useDispatch } from 'react-redux';
+import { palette } from '../../utils/paletteVariables';
+import { addComment, getComments } from '../../redux/posts/postsOperations';
+import { OwnComment } from '../../components/OwnComment';
 
 const CommentsScreen = ({ route }) => {
-  // const { postId } = route.params;
   const [comment, setComment] = useState('');
-  // const { name } = useSelector(selectUser);
-  const createComment = async () => {};
-  // console.log("photo", photo);
-  // console.log("route.params", route.params);
+  const { documentId, name, urlPhoto } = route.params;
+  const { userName, userId } = useAuth();
+  const { allComments } = usePosts();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getComments(documentId));
+  }, []);
+
+  const commentHandler = text => setComment(text);
+
+  const onSendComment = () => {
+    const commentObj = {
+      documentId,
+      userName,
+      userId,
+      comment,
+      datePublication: Date.now(),
+    };
+
+    dispatch(addComment(commentObj));
+    Keyboard.dismiss();
+    setComment('');
+  };
+
   return (
-    <View style={styles.container}>
-      <View style={styles.imageWrapper}>
-        {/* <Image
-          source={{ uri: photo }}
-          style={{ width: "100%", height: "100%" }}
-        /> */}
-      </View>
-      <View style={styles.inputWrapper}>
-        <TextInput
-          placeholder="Comment..."
-          placeholderTextColor="#BDBDBD"
-          style={styles.commentInput}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <Image style={styles.img} source={{ uri: urlPhoto }} alt={name} />
+
+        <FlatList
+          data={allComments}
+          renderItem={({ item }) => <OwnComment comments={item} />}
+          keyExtractor={item => item.datePublication}
         />
-        <TouchableOpacity
-          style={styles.sendBtn}
-          activeOpacity={0.7}
-          onPress={() => Alert.alert('Send comment')}
+
+        <KeyboardAvoidingView
+          behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
         >
-          <SendIcon width={34} height={34} color="#fff" />
-        </TouchableOpacity>
+          <View style={styles.inputWrapper}>
+            <TextInput
+              style={styles.input}
+              value={comment}
+              placeholder="Comment..."
+              onChangeText={commentHandler}
+            />
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={styles.btnSendComment}
+              onPress={onSendComment}
+            >
+              <Icon name="arrow-up" size={20} color={palette.accent} />
+            </TouchableOpacity>
+          </View>
+        </KeyboardAvoidingView>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -48,49 +88,43 @@ export default CommentsScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderTopColor: '#E5E5E5',
-    paddingHorizontal: 16,
-    paddingTop: 32,
-    paddingBottom: 16,
-    justifyContent: 'flex-end',
+    paddingLeft: 20,
+    paddingRight: 20,
   },
-  imageWrapper: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: Dimensions.get('window').width * 0.91,
-    height: 240,
-    backgroundColor: '#F6F6F6',
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#E8E8E8',
+  img: {
+    marginTop: 32,
+    marginBottom: 32,
+    width: '100%',
+    height: 250,
+    borderRadius: 16,
+
+    overflow: 'hidden',
   },
   inputWrapper: {
-    borderWidth: 1,
-    borderRadius: 100,
-    borderColor: '#E8E8E8',
-    height: 50,
-    justifyContent: 'center',
-    backgroundColor: '#F6F6F6',
-    marginTop: 32,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    position: 'relative',
   },
-  commentInput: {
-    marginLeft: 16,
-    fontFamily: 'Roboto-Medium',
+  input: {
+    minHeight: 50,
+    padding: 12,
+    paddingRight: 50,
+    borderWidth: 1,
+    borderRadius: 25,
+    borderColor: palette.gray,
+    marginBottom: 10,
+    backgroundColor: palette.gray,
+    fontFamily: 'Roboto-Regular',
     fontSize: 16,
     lineHeight: 19,
   },
-  sendBtn: {
-    backgroundColor: 'orange',
-    borderRadius: 50,
+  btnSendComment: {
+    position: 'absolute',
+    top: 8,
+    right: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
     width: 34,
     height: 34,
-    margin: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderRadius: 18,
+    backgroundColor: palette.white,
   },
 });

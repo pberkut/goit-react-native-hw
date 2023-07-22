@@ -1,3 +1,3 @@
-export const selectPrestate = state => state.prestate;
-export const selectIsLoading = state => state.prestate.isLoading;
-export const selectError = state => state.prestate.error;
+export const selectPreState = state => state.preState;
+export const selectIsLoading = state => state.preState.isLoading;
+export const selectError = state => state.preState.error;

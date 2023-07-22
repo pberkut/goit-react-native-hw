@@ -7,7 +7,7 @@ import {
   selectIsError,
   selectTextError,
   selectIsRefreshing,
-} from '../redux/auth/selectors';
+} from '../redux/auth/authSelectors';
 
 export const useAuth = () => {
   const userName = useSelector(selectUserName);

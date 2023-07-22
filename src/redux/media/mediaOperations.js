@@ -9,7 +9,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { auth, storage } from '../../firebase/config';
 
 export const uploadPhotoToServer = createAsyncThunk(
-  'media/uploadphoto',
+  'media/uploadPhoto',
   async ({ photo, path }, { rejectWithValue }) => {
     try {
       const response = await fetch(photo);
@@ -25,7 +25,7 @@ export const uploadPhotoToServer = createAsyncThunk(
 );
 
 export const updateAvatar = createAsyncThunk(
-  'prestate/updateAvatar',
+  'preState/updateAvatar',
   async ({ uri, path }, { rejectWithValue }) => {
     try {
       const response = await fetch(uri);
@@ -41,7 +41,7 @@ export const updateAvatar = createAsyncThunk(
 );
 
 export const delPhoto = createAsyncThunk(
-  'prestate/delPhoto',
+  'preState/delPhoto',
   async (uri, { rejectWithValue }) => {
     try {
       const desertRef = ref(storage, uri);

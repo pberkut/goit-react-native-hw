@@ -1,8 +1,8 @@
-import { TouchableOpacity } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { pallete } from "../helpers/variables";
-import { authLogOut } from "../redux/auth/authOperations";
-import { useDispatch } from "react-redux";
+import { TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { palette } from '../utils/paletteVariables';
+import { authLogOut } from '../redux/auth/authOperations';
+import { useDispatch } from 'react-redux';
 
 export function LogOut({ styles }) {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ export function LogOut({ styles }) {
       style={styles}
       onPress={() => dispatch(authLogOut())}
     >
-      <Icon name="sign-out" size={24} color={pallete.gray} />
+      <Icon name="sign-out" size={24} color={palette.gray} />
     </TouchableOpacity>
   );
 }

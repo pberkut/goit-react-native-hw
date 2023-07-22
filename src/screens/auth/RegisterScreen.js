@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   Dimensions,
   Image,
@@ -12,16 +13,19 @@ import {
   Platform,
   Keyboard,
   TextInput,
+  Alert,
 } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
-
 import { AddPhotoBtnIcon } from '../../utils/svgIcons';
-import { Alert } from 'react-native';
+import { authSignUp } from '../../redux/auth/authOperations';
 
 const backgroundImage = require('../../assets/images/background-image.jpg');
 
 const RegisterScreen = () => {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
 
   const [login, setLogin] = useState('');
@@ -58,8 +62,6 @@ const RegisterScreen = () => {
     };
   }, []);
 
-  const navigation = useNavigation();
-
   const keyboardHide = () => {
     Keyboard.dismiss();
   };
@@ -89,11 +91,9 @@ const RegisterScreen = () => {
       return;
     }
 
+    dispatch(authSignUp(userCredentials));
     setIsSecurePassword(true);
-    console.log(userCredentials);
     resetRegisterForm();
-
-    navigation.navigate('Home', { userCredentials });
   };
 
   const resetRegisterForm = () => {

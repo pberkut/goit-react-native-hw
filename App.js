@@ -6,13 +6,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
-import useRoute from './src/router/router';
+import { Provider } from 'react-redux';
+import { store } from './src/redux/store';
 
-let isAuthorized = {};
+import { Main } from './src/components/Main';
 
 export default function App() {
-  const routing = useRoute(isAuthorized);
-
   // Add fonts & SplashScreen
   SplashScreen.preventAutoHideAsync();
 
@@ -35,7 +34,9 @@ export default function App() {
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      <NavigationContainer>{routing}</NavigationContainer>
+      <Provider store={store}>
+        <Main />
+      </Provider>
     </View>
   );
 }

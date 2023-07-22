@@ -3,6 +3,7 @@ import 'react-native-gesture-handler';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { authLogOut } from '../../redux/auth/authOperations';
 
 import { palette } from '../../utils/paletteVariables';
 
@@ -17,6 +18,8 @@ import {
   LogoutIcon,
   ArrowLeftIcon,
 } from '../../utils/svgIcons';
+import { useDispatch } from 'react-redux';
+import { LogOut } from '../../components/LogOut';
 
 const MainTabs = createBottomTabNavigator();
 
@@ -42,11 +45,7 @@ const HomeScreen = () => {
           tabBarIcon: ({ focused, color, size }) => (
             <PostsIcon color={color} width={40} height={40} />
           ),
-          headerRight: () => (
-            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-              <LogoutIcon width={24} height={24} />
-            </TouchableOpacity>
-          ),
+          headerRight: () => <LogOut styles={{ marginRight: 20 }} />,
         }}
       />
       <MainTabs.Screen

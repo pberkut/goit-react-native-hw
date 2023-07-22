@@ -5,7 +5,7 @@ import {
   selectLikes,
   selectComments,
   selectIsRefreshing,
-} from '../redux/posts/selectors';
+} from '../redux/posts/postsSelectors';
 
 export const usePosts = () => {
   const userPosts = useSelector(selectUserPosts);
