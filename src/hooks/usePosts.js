@@ -6,6 +6,7 @@ import {
   selectComments,
   selectIsRefreshing,
 } from '../redux/posts/postsSelectors';
+import { useEffect } from 'react';
 
 export const usePosts = () => {
   const userPosts = useSelector(selectUserPosts);

@@ -22,11 +22,11 @@ const PostsScreen = ({ route }) => {
   const navigation = useNavigation();
 
   const { userName, userEmail, userId } = useAuth();
-  const { allPosts } = usePosts();
+  const { allPosts, userPosts } = usePosts();
 
   useEffect(() => {
     dispatch(getAllPosts());
-  }, []);
+  }, [userPosts]);
 
   return (
     <View style={styles.container}>
