@@ -1,14 +1,14 @@
-import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
-import { testDB } from "../helpers/testDB";
-import { pallete } from "../helpers/variables";
-import { formateDate } from "../helpers/formateDate";
+import React from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
+// import { testDB } from '../helpers/testDB';
+import { palette } from '../utils/paletteVariables';
+import { formateDate } from '../utils/formateDate';
 
-const ownComment = testDB[0].comments[1];
+// const ownComment = testDB[0].comments[1];
 
 export function OwnComment({ comments }) {
-  const { comment, userName, datePublacation } = comments;
-  const { avatar } = ownComment; // TODO DELETE IT
+  const { comment, userName, datePublication, avatar } = comments;
+  // const { avatar } = ownComment; // TODO DELETE IT
 
   return (
     <View style={styles.commentInfoWrapper}>
@@ -17,7 +17,7 @@ export function OwnComment({ comments }) {
       </View>
       <View style={styles.commentWrapper}>
         <Text>{comment}</Text>
-        <Text style={styles.textDate}>{formateDate(datePublacation)}</Text>
+        <Text style={styles.textDate}>{formateDate(datePublication)}</Text>
       </View>
     </View>
   );
@@ -26,8 +26,8 @@ export function OwnComment({ comments }) {
 const styles = StyleSheet.create({
   commentInfoWrapper: {
     marginBottom: 32,
-    width: "100%",
-    flexDirection: "row-reverse",
+    width: '100%',
+    flexDirection: 'row-reverse',
   },
   avatarWrapper: {
     marginLeft: 32,
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   commentWrapper: {
     flex: 1,
     padding: 16,
-    backgroundColor: pallete.lightGray,
+    backgroundColor: palette.lightGray,
     borderTopLeftRadius: 8,
     borderBottomRightRadius: 8,
     borderBottomLeftRadius: 8,
@@ -45,13 +45,13 @@ const styles = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 20,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   textDate: {
     marginTop: 8,
-    textAlign: "left",
+    textAlign: 'left',
     fontSize: 10,
     lineHeight: 12,
-    color: pallete.gray,
+    color: palette.gray,
   },
 });

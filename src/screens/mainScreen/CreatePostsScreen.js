@@ -17,14 +17,12 @@ import {
 import * as Location from 'expo-location';
 import * as MediaLibrary from 'expo-media-library';
 import { palette } from '../../utils/paletteVariables';
-// import { savePhotoInStorage } from '../../firebase/operation';
-// import { useAuth } from '../../hooks/useAuth';
+import { savePhotoInStorage } from '../../firebase/operation';
+import { useAuth } from '../../hooks/useAuth';
 import { useDispatch } from 'react-redux';
-// import { addPost } from '../../redux/posts/postsOperations';
+import { addPost } from '../../redux/posts/postsOperations';
 import { showMessage } from 'react-native-flash-message';
 import { useNavigation } from '@react-navigation/native';
-
-const defaultImage = require('../../assets/images/nature-2.jpg');
 
 const CreatePostsScreen = () => {
   const navigation = useNavigation();
@@ -40,16 +38,12 @@ const CreatePostsScreen = () => {
   const [inputNameStyle, setInputNameStyle] = useState(styles.input);
   const [inputLocationStyle, setInputLocationStyle] = useState(styles.input);
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
-  // const [isCameraOpen, setIsCameraOpen] = useState(false);
-  // const { userName, userId } = useAuth();
-  //temp
-  const userName = 'UserName';
-  const userId = 'id123';
-  // const dispatch = useDispatch();
+  const { userName, userId } = useAuth();
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // permission to get access to camera
-
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
       await MediaLibrary.requestPermissionsAsync();
@@ -58,7 +52,6 @@ const CreatePostsScreen = () => {
     })();
 
     // permission to get location
-
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
@@ -67,7 +60,6 @@ const CreatePostsScreen = () => {
     })();
 
     // add keyBoard listener
-
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
       () => {
@@ -107,9 +99,8 @@ const CreatePostsScreen = () => {
     setLoadedPhoto(null);
   };
 
-  const onPublish = async () => {
-    // const urlPhoto = await savePhotoInStorage(photo);
-    const urlPhoto = 'url photo';
+  const onPublishPost = async () => {
+    const urlPhoto = await savePhotoInStorage(photo);
 
     // * create post object with all data + urlPhoto with path to fireBase
     const userPost = {
@@ -127,7 +118,7 @@ const CreatePostsScreen = () => {
     };
 
     // * send post to server
-    // dispatch(addPost(userPost));
+    dispatch(addPost(userPost));
 
     showMessage({
       message: 'Your post has been successfully added',
@@ -140,10 +131,6 @@ const CreatePostsScreen = () => {
     // setIsCameraOpen(false);
   };
 
-  // const handleOpenCamera = () => {
-  //   setIsCameraOpen(true);
-  // };
-
   const downloadPhoto = () => {
     // setIsCameraOpen(false);
     // setLoadedPhoto(defaultImage);
@@ -154,7 +141,6 @@ const CreatePostsScreen = () => {
     if (cameraRef) {
       const { uri } = await cameraRef.takePictureAsync();
       setPhoto(uri);
-      console.log(uri);
     }
 
     let location = await Location.getCurrentPositionAsync({});
@@ -277,7 +263,7 @@ const CreatePostsScreen = () => {
               }
               disabled={!isPostData}
               activeOpacity={0.8}
-              onPress={onPublish}
+              onPress={onPublishPost}
             >
               <Text style={styles.btnTitle}>Опублікувати</Text>
             </TouchableOpacity>

@@ -18,8 +18,8 @@ const screenOptions = {
   tabBarShowLabel: false,
 };
 
-const useRoute = isAuthorized => {
-  if (!isAuthorized) {
+const useRoutes = isAuth => {
+  if (!isAuth) {
     return (
       <AuthStack.Navigator initialRouteName="Login">
         <AuthStack.Screen
@@ -34,27 +34,27 @@ const useRoute = isAuthorized => {
         />
       </AuthStack.Navigator>
     );
+  } else {
+    return (
+      <MainStack.Navigator initialRouteName="Home">
+        <MainStack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ headerShown: false }}
+        />
+        <MainStack.Screen
+          name="Comments"
+          component={CommentsScreen}
+          options={{ title: 'Коментарі', headerTitleAlign: 'center' }}
+        />
+        <MainStack.Screen
+          name="Map"
+          component={MapScreen}
+          options={{ title: 'Карта', headerTitleAlign: 'center' }}
+        />
+      </MainStack.Navigator>
+    );
   }
-
-  return (
-    <MainStack.Navigator initialRouteName="Home">
-      <MainStack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{ headerShown: false }}
-      />
-      <MainStack.Screen
-        name="Comments"
-        component={CommentsScreen}
-        options={{ title: 'Коментарі', headerTitleAlign: 'center' }}
-      />
-      <MainStack.Screen
-        name="Map"
-        component={MapScreen}
-        options={{ title: 'Карта', headerTitleAlign: 'center' }}
-      />
-    </MainStack.Navigator>
-  );
 };
 
 // const useRoute = isAuthorized => {
@@ -88,4 +88,4 @@ const useRoute = isAuthorized => {
 //     </AuthStack.Navigator>
 //   );
 // };
-export default useRoute;
+export default useRoutes;

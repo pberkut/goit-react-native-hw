@@ -9,13 +9,9 @@ import * as SplashScreen from 'expo-splash-screen';
 import { Provider } from 'react-redux';
 import { store } from './src/redux/store';
 
-import useRoute from './src/router/router';
-
-let isAuthorized = {};
+import { Main } from './src/components/Main';
 
 export default function App() {
-  const routing = useRoute(isAuthorized);
-
   // Add fonts & SplashScreen
   SplashScreen.preventAutoHideAsync();
 
@@ -37,11 +33,11 @@ export default function App() {
   // End fonts
 
   return (
-    <Provider store={store}>
-      <View style={styles.container} onLayout={onLayoutRootView}>
-        <NavigationContainer>{routing}</NavigationContainer>
-      </View>
-    </Provider>
+    <View style={styles.container} onLayout={onLayoutRootView}>
+      <Provider store={store}>
+        <Main />
+      </Provider>
+    </View>
   );
 }
 

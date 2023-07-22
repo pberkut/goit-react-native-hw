@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { uploadPhotoToServer, delPhoto, updateAvatar } from './mediaOperations';
 import { signup, signin, signout, refresh } from '../auth/authOperations';
 
-const initialPrestate = {
+const initialPreState = {
   photo: null,
   isLoading: false,
   error: null,
@@ -24,7 +24,7 @@ const handleRejected = (state, { payload }) => {
 
 const mediaSlice = createSlice({
   name: 'media',
-  initialState: initialPrestate,
+  initialState: initialPreState,
   extraReducers: builder => {
     builder
       .addCase(uploadPhotoToServer.pending, handlePending)

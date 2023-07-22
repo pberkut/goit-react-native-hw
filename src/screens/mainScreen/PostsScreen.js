@@ -8,23 +8,25 @@ import {
 } from 'react-native';
 import PostItemAddPost from '../../components/PostItemAddPost';
 import { useEffect, useState } from 'react';
+import { useAuth } from '../../hooks/useAuth';
+import { usePosts } from '../../hooks/usePosts';
 import { useNavigation } from '@react-navigation/native';
 import { palette } from '../../utils/paletteVariables';
+import { getAllPosts } from '../../redux/posts/postsOperations';
+import { useDispatch } from 'react-redux';
 
 const avatarImage = require('../../assets/images/placeholder/avatarPlaceholder.jpg');
 
 const PostsScreen = ({ route }) => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
-  const userName = 'Peter';
-  const userEmail = 'example@gmail.com';
-  const [posts, setPosts] = useState([]);
-  console.log('Posts', posts);
+
+  const { userName, userEmail, userId } = useAuth();
+  const { allPosts } = usePosts();
 
   useEffect(() => {
-    if (route.params) {
-      setPosts(prevState => [...prevState, route.params]);
-    }
-  }, [route.params]);
+    dispatch(getAllPosts());
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -37,7 +39,7 @@ const PostsScreen = ({ route }) => {
       </View>
 
       <FlatList
-        data={posts}
+        data={allPosts}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <PostItemAddPost postData={item} navigation={navigation} />

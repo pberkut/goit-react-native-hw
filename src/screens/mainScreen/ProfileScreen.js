@@ -19,6 +19,12 @@ import {
   ThumbUpIcon,
 } from '../../utils/svgIcons';
 import { useNavigation } from '@react-navigation/native';
+import { LogOut } from '../../components/LogOut';
+
+import { useAuth } from '../../hooks/useAuth';
+import { usePosts } from '../../hooks/usePosts';
+import { useDispatch } from 'react-redux';
+import { getPosts } from '../../redux/posts/postsOperations';
 
 const backgroundImage = require('../../assets/images/background-image.jpg');
 const avatarImage = require('../../assets/images/placeholder/avatarPlaceholder.jpg');
@@ -26,26 +32,14 @@ const photoPlaceholder = require('../../assets/images/placeholder/imagePlacehold
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
-  // const [loggingOut, setLoggingOut] = useState(false);
+  const dispatch = useDispatch();
 
-  const onLogout = () => {
-    // if (loggingOut) {
-    //   // logOut();
-    //   // setLoggingOut(false);
-    // } else {
-    //   // setLoggingOut(true);
-    //   Alert.alert(
-    //     'Confirm Logout',
-    //     'Are you sure you want to log out of the app?',
-    //     [
-    //       { text: 'Yes', onPress: logOut },
-    //       { text: 'NO', onPress: () => setLoggingOut(false) },
-    //     ],
-    //   );
-    // }
+  const { userName, userId } = useAuth();
+  const { userPosts } = usePosts();
 
-    navigation.navigate('Login');
-  };
+  useEffect(() => {
+    dispatch(getPosts(userId));
+  }, []);
 
   return (
     <View style={styles.bgImageContainer}>
@@ -65,13 +59,9 @@ const ProfileScreen = () => {
 
           {/* Logout button */}
           <View style={styles.logoutContainer}>
-            <TouchableOpacity onPress={onLogout}>
-              <View style={{ marginRight: 10 }}>
-                <LogoutIcon width={24} height={24} />
-              </View>
-            </TouchableOpacity>
+            <LogOut styles={styles.logOutBtn} />
           </View>
-          <Text style={styles.title}>Natali Romanova</Text>
+          <Text style={styles.title}>{userName}</Text>
           <View style={styles.postWrapper}>
             <View style={styles.imageWrapper}>
               <Image style={styles.postImage} source={photoPlaceholder} />
@@ -218,5 +208,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  logOutBtn: {
+    position: 'absolute',
+    top: 10,
+    right: 25,
   },
 });

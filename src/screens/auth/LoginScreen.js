@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   StyleSheet,
   Text,
@@ -16,11 +17,13 @@ import {
 } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
+import { authLogIn } from '../../redux/auth/authOperations';
 
 const backgroundImage = require('../../assets/images/background-image.jpg');
 
 const LoginScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
 
@@ -101,11 +104,9 @@ const LoginScreen = () => {
       return;
     }
 
+    dispatch(authLogIn(userCredentials));
     setIsSecurePassword(true);
-    console.log(userCredentials);
     resetLoginForm();
-
-    navigation.navigate('Home', { userCredentials });
   };
 
   const resetLoginForm = () => {
